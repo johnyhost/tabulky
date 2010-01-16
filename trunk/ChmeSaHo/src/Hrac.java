@@ -3,14 +3,14 @@ import java.util.List;
 
 
 public class Hrac {
-	int idHraca;
-	String meno;
-	List<Boolean> hralZapas;
-	List<Integer> goly;
-	List<Integer> asist;
-	List<Integer> trestMin;
-	List<Integer> odchytMin;
-	List<Integer> inkasGoly;
+	private int idHraca;
+	private String meno;
+	private List<Boolean> hralZapas;
+	private List<Integer> goly;
+	private List<Integer> asist;
+	private List<Integer> trestMin;
+	private List<Integer> odchytMin;
+	private List<Integer> inkasGoly;
 	public Hrac(int idHraca, String meno) {
 		this.idHraca=idHraca;
 		this.meno=meno;
@@ -108,6 +108,12 @@ public class Hrac {
 	public int getInkGol(int idZapasu) {
 		return inkasGoly.get(idZapasu);
 	}
+	public String getMeno() {
+		return this.meno;
+	}
+	public void setMeno(String noveMeno) {
+		this.meno=noveMeno;
+	}
 	public void setHralZapas(int idZapasu,boolean hral) {
 		hralZapas.set(idZapasu,hral);
 	}
@@ -126,7 +132,5 @@ public class Hrac {
 	public void setInkGol(int idZapasu, int cislo) {
 		inkasGoly.set(idZapasu,cislo);
 	}
-	
-	
-	
+		
 }
