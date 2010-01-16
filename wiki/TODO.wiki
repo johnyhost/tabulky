@@ -5,7 +5,7 @@
   * zakladne rozvrhnutie tried
   * generovanie zapasov z Bergerovych tabuliek
 
-== TODO ==
+=== TODO ===
 
   * gui
   * save/load
