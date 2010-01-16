@@ -1,4 +1,4 @@
-#summary : planovane veci v projekte a uz hotove casti
+#summary planovane veci v projekte a uz hotove casti
 
 = Done =
 
