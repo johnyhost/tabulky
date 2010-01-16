@@ -1,10 +1,11 @@
-#summary : To do stuff in da project
+#summary : planovane veci v projekte a uz hotove casti
+
 = Done =
 
   * zakladne rozvrhnutie tried
   * generovanie zapasov z Bergerovych tabuliek
 
-= TODO =
+== TODO ==
 
   * gui
   * save/load
