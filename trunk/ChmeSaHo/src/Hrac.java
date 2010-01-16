@@ -5,70 +5,70 @@ import java.util.List;
 public class Hrac {
 	int idHraca;
 	String meno;
-	List<Boolean> zapasy;
+	List<Boolean> hralZapas;
 	List<Integer> goly;
 	List<Integer> asist;
-	List<Integer> trestmin;
+	List<Integer> trestMin;
 	List<Integer> odchytMin;
 	List<Integer> inkasGoly;
 	public Hrac(int idHraca, String meno) {
 		this.idHraca=idHraca;
 		this.meno=meno;
-		this.zapasy=new ArrayList<Boolean>();
+		this.hralZapas=new ArrayList<Boolean>();
 		this.goly=new ArrayList<Integer>();
 		this.asist=new ArrayList<Integer>();
-		this.trestmin=new ArrayList<Integer>();
+		this.trestMin=new ArrayList<Integer>();
 		this.odchytMin=new ArrayList<Integer>();
 		this.inkasGoly=new ArrayList<Integer>();		
 	}
 	public boolean jeBrankar() {
 		int sucet=0;
-		for (int i = 0; i < odchytMin.size(); i++) {
-			sucet+=odchytMin.get(i);
+		for (int odMin: odchytMin) {
+			sucet+=odMin;
 		}
 		if(sucet>0) return true; else return false;
 	}
-	public int getZapasy() {
+	public int pocetOdohratychZapasov() {
 		int sucet=0;
-		for (int i = 0; i < zapasy.size(); i++) {
-			if(zapasy.get(i)) sucet++;
+		for (boolean hral: hralZapas) {
+			if(hral) sucet++;
 		}
 		return sucet;
 	}
 	public int getGoly() {
 		int sucet=0;
-		for (int i = 0; i < goly.size(); i++) {
-			sucet+=goly.get(i);
+		for (int i: goly) {
+			sucet+=i;
 		}
 		return sucet;
 	}
 	public int getAsist() {
 		int sucet=0;
-		for (int i = 0; i < asist.size(); i++) {
-			sucet+=asist.get(i);
+		for (int i: asist) {
+			sucet+=i;
 		}
 		return sucet;
 	}
 	public int getTrestMin() {
 		int sucet=0;
-		for (int i = 0; i < trestmin.size(); i++) {
-			sucet+=trestmin.get(i);
+		for (int i: trestMin ) {
+			sucet+=i;
 		}
 		return sucet;
 	}
 	public int getInkasGolov() {
 		//celkovy pocet inkasovanych golov
 		int sucet=0;
-		for (int i = 0; i < inkasGoly.size(); i++) {
-			sucet+=inkasGoly.get(i);
+		for (int i: inkasGoly) {
+			sucet+=i;
 		}
 		return sucet;		
 	}
 	public int getOdchytMin() {
 		//celkovy pocet odchytanych minut
 		int sucet=0;
-		for (int i = 0; i < odchytMin.size(); i++) {
-			sucet+=odchytMin.get(i);
+		for (int i: odchytMin) {
+			sucet+=i;
 		}
 		return sucet;		
 	}
@@ -76,25 +76,57 @@ public class Hrac {
 		//priemer golu na zapas
 		return getInkasGolov()/(getOdchytMin()/dlzkaZapasu);
 	}
+	public void nehralZapas(int idZapasu){
+		hralZapas.add(idZapasu,false);
+		goly.add(idZapasu,0);
+		asist.add(idZapasu,0);
+		trestMin.add(idZapasu,0);
+		odchytMin.add(idZapasu,0);
+	}
+	public void addZapas(int idZapasu, int Goly, int Asist, int TrestMin, int OdchytMin, int InkGol) {
+		hralZapas.add(idZapasu,true);
+		goly.add(idZapasu,Goly);
+		asist.add(idZapasu,Asist);
+		trestMin.add(idZapasu,TrestMin);
+		odchytMin.add(idZapasu,OdchytMin);
+	}
+	public boolean getHralZapas(int idZapasu) {
+		return hralZapas.get(idZapasu);
+	}
+	public int getGoly(int idZapasu) {
+		return goly.get(idZapasu);
+	}
+	public int getAsist(int idZapasu) {
+		return asist.get(idZapasu);
+	}
+	public int getTrestMin(int idZapasu) {
+		return trestMin.get(idZapasu);
+	}
+	public int getOdchytMin(int idZapasu) {
+		return odchytMin.get(idZapasu);
+	}
+	public int getInkGol(int idZapasu) {
+		return inkasGoly.get(idZapasu);
+	}
+	public void setHralZapas(int idZapasu,boolean hral) {
+		hralZapas.set(idZapasu,hral);
+	}
+	public void setGoly(int idZapasu, int cislo) {
+		goly.set(idZapasu,cislo);
+	}
+	public void setAsist(int idZapasu, int cislo) {
+		asist.set(idZapasu,cislo);
+	}
+	public void setTrestMin(int idZapasu, int cislo) {
+		trestMin.set(idZapasu,cislo);
+	}
+	public void setOdchytMin(int idZapasu, int cislo) {
+		odchytMin.set(idZapasu,cislo);
+	}
+	public void setInkGol(int idZapasu, int cislo) {
+		inkasGoly.set(idZapasu,cislo);
+	}
 	
-	public void addZapas(boolean z) {
-		zapasy.add(z);
-	}
-	public void addGoly(int g) {
-		goly.add(g);
-	}
-	public void addAsist(int asists) {
-		asist.add(asists);
-	}
-	public void addTM(int tm) {
-		trestmin.add(tm);
-	}
-	public void addOdchMin(int om) {
-		odchytMin.add(om);
-	}
-	public void addInkGol(int ig) {
-		inkasGoly.add(ig);
-	}
 	
 	
 }
