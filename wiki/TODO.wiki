@@ -1,0 +1,12 @@
+#summary : To do stuff in da project
+= Done =
+
+  * zakladne rozvrhnutie tried
+  * generovanie zapasov z Bergerovych tabuliek
+
+= TODO =
+
+  * gui
+  * save/load
+  * export do html
+  * ?export do sql?
