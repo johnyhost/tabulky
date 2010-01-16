@@ -3,6 +3,7 @@ import java.util.List;
 
 
 public class Hrac {
+	int idHraca;
 	String meno;
 	List<Boolean> zapasy;
 	List<Integer> goly;
@@ -10,7 +11,8 @@ public class Hrac {
 	List<Integer> trestmin;
 	List<Integer> odchytMin;
 	List<Integer> inkasGoly;
-	public Hrac(String meno) {
+	public Hrac(int idHraca, String meno) {
+		this.idHraca=idHraca;
 		this.meno=meno;
 		this.zapasy=new ArrayList<Boolean>();
 		this.goly=new ArrayList<Integer>();
