@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE LIGA SYSTEM "liga.dtd" >
+<LIGA>
+  <TEAM>
+    <IDTEAMU></IDTEAMU>
+    <NAZOV></NAZOV>
+    <HRAC>
+      <IDHRACA></IDHRACA>
+      <MENO></MENO>
+      <DATAZAPASU>
+        <DATAIDZAPASU></DATAIDZAPASU>
+        <HRAL></HRAL>
+        <GOLY></GOLY>
+        <ASIST></ASIST>
+        <TRESTMIN></TRESTMIN>
+        <ODCHYTMIN></ODCHYTMIN>
+        <INKASGOLY></INKASGOLY>
+      </DATAZAPASU>
+    </HRAC>
+  </TEAM>
+  <ZAPAS>
+    <IDZAPASU></IDZAPASU>
+    <IDTEAMU1></IDTEAMU1>
+    <IDTEAMU2></IDTEAMU2>
+    <VYSLEDOK></VYSLEDOK>
+  </ZAPAS>
+</LIGA>
