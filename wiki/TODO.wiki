@@ -11,3 +11,4 @@
   * save/load
   * export do html
   * ?export do sql?
+  * statistiky
