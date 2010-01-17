@@ -34,4 +34,22 @@ public class Liga {
 			e.printStackTrace();
 		}
 	}
+	public Team getTeam(int idTeamu){
+		for (int i = 0; i < zoznamTeamov.size(); i++) {
+			if(zoznamTeamov.get(i).getIdTeamu()==idTeamu) zoznamTeamov.get(i);
+		} 
+		return null;
+	}
+	public Team getZapas(int idZapasu){
+		for (int i = 0; i < zoznamZapasov.size(); i++) {
+			if(zoznamZapasov.get(i).getIdZapasu()==idZapasu) zoznamZapasov.get(i);
+		} 
+		return null;
+	}
+	public Team getTeam(String nazovTeamu){
+		for (int i = 0; i < zoznamTeamov.size(); i++) {
+			if(zoznamTeamov.get(i).getNazov()==nazovTeamu) zoznamTeamov.get(i);
+		} 
+		return null;
+	}
 }
