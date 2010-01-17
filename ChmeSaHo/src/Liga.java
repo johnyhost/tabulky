@@ -36,19 +36,37 @@ public class Liga {
 	}
 	public Team getTeam(int idTeamu){
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
-			if(zoznamTeamov.get(i).getIdTeamu()==idTeamu) zoznamTeamov.get(i);
+			if(zoznamTeamov.get(i).getIdTeamu()==idTeamu) return zoznamTeamov.get(i);
 		} 
 		return null;
 	}
-	public Team getZapas(int idZapasu){
+	public Zapas getZapas(int idZapasu){
 		for (int i = 0; i < zoznamZapasov.size(); i++) {
-			if(zoznamZapasov.get(i).getIdZapasu()==idZapasu) zoznamZapasov.get(i);
+			if(zoznamZapasov.get(i).getIdZapasu()==idZapasu) return zoznamZapasov.get(i);
 		} 
 		return null;
 	}
 	public Team getTeam(String nazovTeamu){
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
-			if(zoznamTeamov.get(i).getNazov()==nazovTeamu) zoznamTeamov.get(i);
+			if(zoznamTeamov.get(i).getNazov()==nazovTeamu) return zoznamTeamov.get(i);
+		} 
+		return null;
+	}
+	public Hrac getHrac(int idHraca){
+		for (int i = 0; i < zoznamTeamov.size(); i++) {
+			for(int j=0;j<zoznamTeamov.get(i).zoznamHracov.size();j++){
+				if(zoznamTeamov.get(i).zoznamHracov.get(j).getIdHraca()==idHraca) return zoznamTeamov.get(i).zoznamHracov.get(j);
+			}
+			
+		} 
+		return null;
+	}
+	public Hrac getHrac(String menoHraca){
+		for (int i = 0; i < zoznamTeamov.size(); i++) {
+			for(int j=0;j<zoznamTeamov.get(i).zoznamHracov.size();j++){
+				if(zoznamTeamov.get(i).zoznamHracov.get(j).getMeno()==menoHraca) return zoznamTeamov.get(i).zoznamHracov.get(j);
+			}
+			
 		} 
 		return null;
 	}
