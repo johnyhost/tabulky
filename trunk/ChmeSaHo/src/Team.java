@@ -3,18 +3,21 @@ import java.util.List;
 
 
 public class Team {
-	private String nazov;
 	private int idTeamu;
+	private String nazov;
 	List<Hrac> zoznamHracov;
 	public Team(String nazov, int idTeamu) {
 		this.nazov=nazov;
 		this.idTeamu=idTeamu;
 		this.zoznamHracov=new ArrayList<Hrac>();
 	}
+	public Team() {
+		this.zoznamHracov=new ArrayList<Hrac>();
+	}
 	public int getBody(List<Zapas> zapasy) {
 		int body=0;
 		for (int i = 0; i < zapasy.size(); i++) {
-			if(zapasy.get(i).getIdTeam1()==idTeamu){
+			if(zapasy.get(i).getIdTeamu1()==idTeamu){
 				if(zapasy.get(i).getVysledok()==0) {
 					body+=1;
 				}
@@ -22,7 +25,7 @@ public class Team {
 					body+=3;
 				}
 			}
-			if(zapasy.get(i).getIdTeam2()==idTeamu){
+			if(zapasy.get(i).getIdTeamu2()==idTeamu){
 				if(zapasy.get(i).getVysledok()==0) {
 					body+=1;
 				}
