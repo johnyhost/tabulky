@@ -12,7 +12,7 @@ public class Liga {
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
 	}
-	public void generateZapasy(int pocetTeamov) {
+	public void generateZapasy(int pocetTeamov, int pocetOdviet) {
 		if(pocetTeamov%2==1) {
 			pocetTeamov++; //ak je pocet teamov neparny, zvys sa o jedna aby bol parny 
 		}
@@ -26,13 +26,28 @@ public class Liga {
 				int id1=scRiadok.nextInt();
 				int id2=scRiadok.nextInt();
 				zoznamZapasov.add(new Zapas(i,id1,id2));
-				System.out.println("Zapas s id "+i+" pridany: "+id1+" vs. "+id2);
 				i++;
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("error: berger's file not found");
 			e.printStackTrace();
 		}
+		//v pripade ze sa hra liga systemom doma-vonku prip. viackrat, raz uz zbehlo generovanie zapasov
+		int pocetZapasov = zoznamZapasov.size();
+		for (int i = 1; i <= pocetOdviet; i++) {
+			for (int j = 0; j < pocetZapasov; j++) {
+				if(i%2==1) {
+					zoznamZapasov.add(new Zapas(i*pocetZapasov+j+1,zoznamZapasov.get(j).getIdTeamu2(),zoznamZapasov.get(j).getIdTeamu1()));
+				} else {
+					zoznamZapasov.add(new Zapas(i*pocetZapasov+j+1,zoznamZapasov.get(j).getIdTeamu1(),zoznamZapasov.get(j).getIdTeamu2()));
+				}
+			}
+		}
+		for (Zapas z : zoznamZapasov) {
+			System.out.println("Zapas s id "+z.getIdZapasu()+" pridany: "+z.getIdTeamu1()+" vs. "+z.getIdTeamu2());
+		}
+			
+		
 	}
 	public Team getTeam(int idTeamu){
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
