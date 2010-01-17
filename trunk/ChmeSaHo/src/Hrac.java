@@ -11,6 +11,7 @@ public class Hrac {
 	private List<Integer> trestMin;
 	private List<Integer> odchytMin;
 	private List<Integer> inkasGoly;
+	private List<Integer> idZapasov; // pouzite na prevod zapasu z ligy pre konkretneho hraca
 	public Hrac(int idHraca, String meno) {
 		this.idHraca=idHraca;
 		this.meno=meno;
@@ -19,7 +20,24 @@ public class Hrac {
 		this.asist=new ArrayList<Integer>();
 		this.trestMin=new ArrayList<Integer>();
 		this.odchytMin=new ArrayList<Integer>();
-		this.inkasGoly=new ArrayList<Integer>();		
+		this.inkasGoly=new ArrayList<Integer>();	
+		this.idZapasov=new ArrayList<Integer>();	
+	}
+	public Hrac() {
+		this.hralZapas=new ArrayList<Boolean>();
+		this.goly=new ArrayList<Integer>();
+		this.asist=new ArrayList<Integer>();
+		this.trestMin=new ArrayList<Integer>();
+		this.odchytMin=new ArrayList<Integer>();
+		this.inkasGoly=new ArrayList<Integer>();
+		this.idZapasov=new ArrayList<Integer>();	
+	}
+	private int prevodIdZapasu(int idZapasu){
+		for(int i=0;i< idZapasov.size();i++){
+			if(idZapasu==idZapasov.get(i)) return i;
+		}
+		System.err.println("CHYBA: Hraca sa netyka zapas s takymto ligovym ID:"+idZapasu);
+		return 0;
 	}
 	public boolean jeBrankar() {
 		int sucet=0;
@@ -77,60 +95,89 @@ public class Hrac {
 		return getInkasGolov()/(getOdchytMin()/dlzkaZapasu);
 	}
 	public void nehralZapas(int idZapasu){
-		hralZapas.add(idZapasu,false);
-		goly.add(idZapasu,0);
-		asist.add(idZapasu,0);
-		trestMin.add(idZapasu,0);
-		odchytMin.add(idZapasu,0);
+		idZapasov.add(idZapasu);
+		hralZapas.add(prevodIdZapasu(idZapasu),false);
+		goly.add(prevodIdZapasu(idZapasu),0);
+		asist.add(prevodIdZapasu(idZapasu),0);
+		trestMin.add(prevodIdZapasu(idZapasu),0);
+		odchytMin.add(prevodIdZapasu(idZapasu),0);
 	}
 	public void addZapas(int idZapasu, int Goly, int Asist, int TrestMin, int OdchytMin, int InkGol) {
-		hralZapas.add(idZapasu,true);
-		goly.add(idZapasu,Goly);
-		asist.add(idZapasu,Asist);
-		trestMin.add(idZapasu,TrestMin);
-		odchytMin.add(idZapasu,OdchytMin);
+		idZapasov.add(idZapasu);
+		hralZapas.add(prevodIdZapasu(idZapasu),true);
+		goly.add(prevodIdZapasu(idZapasu),Goly);
+		asist.add(prevodIdZapasu(idZapasu),Asist);
+		trestMin.add(prevodIdZapasu(idZapasu),TrestMin);
+		odchytMin.add(prevodIdZapasu(idZapasu),OdchytMin);
 	}
 	public boolean getHralZapas(int idZapasu) {
-		return hralZapas.get(idZapasu);
+		return hralZapas.get(prevodIdZapasu(idZapasu));
 	}
 	public int getGoly(int idZapasu) {
-		return goly.get(idZapasu);
+		return goly.get(prevodIdZapasu(idZapasu));
 	}
 	public int getAsist(int idZapasu) {
-		return asist.get(idZapasu);
+		return asist.get(prevodIdZapasu(idZapasu));
 	}
 	public int getTrestMin(int idZapasu) {
-		return trestMin.get(idZapasu);
+		return trestMin.get(prevodIdZapasu(idZapasu));
 	}
 	public int getOdchytMin(int idZapasu) {
-		return odchytMin.get(idZapasu);
+		return odchytMin.get(prevodIdZapasu(idZapasu));
 	}
 	public int getInkGol(int idZapasu) {
-		return inkasGoly.get(idZapasu);
+		return inkasGoly.get(prevodIdZapasu(idZapasu));
 	}
 	public String getMeno() {
 		return this.meno;
 	}
 	public void setMeno(String noveMeno) {
 		this.meno=noveMeno;
+	}	
+	public int getIdHraca() {
+		return idHraca;
+	}
+	public void setIdHraca(int idHraca) {
+		this.idHraca = idHraca;
 	}
 	public void setHralZapas(int idZapasu,boolean hral) {
-		hralZapas.set(idZapasu,hral);
+		hralZapas.set(prevodIdZapasu(idZapasu),hral);
 	}
 	public void setGoly(int idZapasu, int cislo) {
-		goly.set(idZapasu,cislo);
+		goly.set(prevodIdZapasu(idZapasu),cislo);
 	}
 	public void setAsist(int idZapasu, int cislo) {
-		asist.set(idZapasu,cislo);
+		asist.set(prevodIdZapasu(idZapasu),cislo);
 	}
 	public void setTrestMin(int idZapasu, int cislo) {
-		trestMin.set(idZapasu,cislo);
+		trestMin.set(prevodIdZapasu(idZapasu),cislo);
 	}
 	public void setOdchytMin(int idZapasu, int cislo) {
-		odchytMin.set(idZapasu,cislo);
+		odchytMin.set(prevodIdZapasu(idZapasu),cislo);
 	}
-	public void setInkGol(int idZapasu, int cislo) {
-		inkasGoly.set(idZapasu,cislo);
+	public void setInkasGoly(int idZapasu, int cislo) {
+		inkasGoly.set(prevodIdZapasu(idZapasu),cislo);
+	}
+	
+	// metody dolezite pre triedu Data, konkretne nacitavanie
+	public void addHralZapas(int idZapasu,boolean hral) {
+		idZapasov.add(idZapasu);		
+		hralZapas.add(prevodIdZapasu(idZapasu),hral);
+	}
+	public void addGoly(int cislo) {
+		goly.add(cislo);
+	}
+	public void addAsist(int cislo) {
+		asist.add(cislo);
+	}
+	public void addTrestMin(int cislo) {
+		trestMin.add(cislo);
+	}
+	public void addOdchytMin(int cislo) {
+		odchytMin.add(cislo);
+	}
+	public void addInkasGoly(int cislo) {
+		inkasGoly.add(cislo);
 	}
 		
 }
