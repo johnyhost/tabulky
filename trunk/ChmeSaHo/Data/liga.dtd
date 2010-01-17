@@ -1,0 +1,20 @@
+<!ELEMENT ASIST ( #PCDATA ) >    
+<!ELEMENT DATAIDZAPASU ( #PCDATA ) >      
+<!ELEMENT DATAZAPASU ( DATAIDZAPASU, HRAL, GOLY, ASIST, TRESTMIN, ODCHYTMIN, INKASGOLY ) >  
+<!ELEMENT GOLY ( #PCDATA ) >                                                                      
+<!ELEMENT HRAC ( IDHRACA, MENO, DATAZAPASU ) >                                                    
+<!ELEMENT HRAL ( #PCDATA ) >                                                                        
+<!ELEMENT IDHRACA ( #PCDATA ) >                                                                       
+<!ELEMENT IDTEAMU ( #PCDATA ) >           
+<!ELEMENT IDTEAMU1 ( #PCDATA ) >      
+<!ELEMENT IDTEAMU2 ( #PCDATA ) > 
+<!ELEMENT IDZAPASU ( #PCDATA ) > 
+<!ELEMENT INKASGOLY ( #PCDATA ) > 
+<!ELEMENT LIGA ( TEAM, ZAPAS ) >  
+<!ELEMENT MENO ( #PCDATA ) >      
+<!ELEMENT NAZOV ( #PCDATA ) >     
+<!ELEMENT ODCHYTMIN ( #PCDATA ) > 
+<!ELEMENT TEAM ( IDTEAMU, NAZOV, HRAC ) >
+<!ELEMENT TRESTMIN ( #PCDATA ) >         
+<!ELEMENT VYSLEDOK ( #PCDATA ) >         
+<!ELEMENT ZAPAS ( IDZAPASU, IDTEAMU1, IDTEAMU2, VYSLEDOK ) >
