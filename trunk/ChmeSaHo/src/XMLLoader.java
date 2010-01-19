@@ -71,7 +71,7 @@ public class XMLLoader extends DefaultHandler{
 		}else if (qName.equals("NAZOV")) {
 			tempTeam.setNazov(tempStr);			
 		}else if (qName.equals("HRAC")) {
-			tempTeam.zoznamHracov.add(tempHrac);
+			tempTeam.getZoznamHracov().add(tempHrac);
 		}else if (qName.equals("IDHRACA")) {
 			tempHrac.setIdHraca(Integer.parseInt(tempStr));
 		}else if (qName.equals("MENO")) {
