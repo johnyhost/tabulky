@@ -72,8 +72,8 @@ public class Liga {
 	}
 	public Hrac getHrac(int idHraca){
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
-			for(int j=0;j<zoznamTeamov.get(i).zoznamHracov.size();j++){
-				if(zoznamTeamov.get(i).zoznamHracov.get(j).getIdHraca()==idHraca) return zoznamTeamov.get(i).zoznamHracov.get(j);
+			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
+				if(zoznamTeamov.get(i).getZoznamHracov().get(j).getIdHraca()==idHraca) return zoznamTeamov.get(i).getZoznamHracov().get(j);
 			}
 			
 		} 
@@ -88,12 +88,18 @@ public class Liga {
 	}
 	public Hrac getHrac(String menoHraca){
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
-			for(int j=0;j<zoznamTeamov.get(i).zoznamHracov.size();j++){
-				if(zoznamTeamov.get(i).zoznamHracov.get(j).getMeno()==menoHraca) return zoznamTeamov.get(i).zoznamHracov.get(j);
+			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
+				if(zoznamTeamov.get(i).getZoznamHracov().get(j).getMeno()==menoHraca) return zoznamTeamov.get(i).getZoznamHracov().get(j);
 			}
 			
 		} 
 		return null;
+	}	
+	public List<Team> getZoznamTeamov() {
+		return zoznamTeamov;
+	}
+	public List<Zapas> getZoznamZapasov() {
+		return zoznamZapasov;
 	}
 	public void exportHtmlTabulka(String s) throws IOException {
 		//s je cesta k suboru

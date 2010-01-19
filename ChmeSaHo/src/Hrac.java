@@ -74,7 +74,7 @@ public class Hrac {
 		}
 		return sucet;
 	}
-	public int getInkasGolov() {
+	public int getInkasGoly() {
 		//celkovy pocet inkasovanych golov
 		int sucet=0;
 		for (int i: inkasGoly) {
@@ -92,7 +92,7 @@ public class Hrac {
 	}
 	public double getPriemer(int dlzkaZapasu) {
 		//priemer golu na zapas
-		return getInkasGolov()/(getOdchytMin()/dlzkaZapasu);
+		return getInkasGoly()/(getOdchytMin()/dlzkaZapasu);
 	}
 	public void nehralZapas(int idZapasu){
 		idZapasov.add(idZapasu);
@@ -125,7 +125,7 @@ public class Hrac {
 	public int getOdchytMin(int idZapasu) {
 		return odchytMin.get(prevodIdZapasu(idZapasu));
 	}
-	public int getInkGol(int idZapasu) {
+	public int getInkasGoly(int idZapasu) {
 		return inkasGoly.get(prevodIdZapasu(idZapasu));
 	}
 	public String getMeno() {
@@ -179,5 +179,9 @@ public class Hrac {
 	public void addInkasGoly(int cislo) {
 		inkasGoly.add(cislo);
 	}
+	public List<Integer> getIdZapasov() {
+		return idZapasov;
+	}
+	
 		
 }
