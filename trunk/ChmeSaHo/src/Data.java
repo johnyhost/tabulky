@@ -1,14 +1,6 @@
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 /**
  * @author Laky
- * Trieda urcena na ukladanie a nacitanie dat
+ * Trieda urcena na ukladanie, nacitanie a export dat
  */
 public class Data {
 	Liga liga;
@@ -22,6 +14,11 @@ public class Data {
 		XMLLoader loader = new XMLLoader(filename);
 		liga=loader.result();
 		return liga;
+		
+	}
+	public void saveXML(String filename){
+		XMLSaver saver = new XMLSaver(filename,liga);
+		
 		
 	}
 }
