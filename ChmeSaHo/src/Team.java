@@ -5,7 +5,7 @@ import java.util.List;
 public class Team {
 	private int idTeamu;
 	private String nazov;
-	List<Hrac> zoznamHracov;
+	private List<Hrac> zoznamHracov;
 	public Team(String nazov, int idTeamu) {
 		this.nazov=nazov;
 		this.idTeamu=idTeamu;
@@ -47,7 +47,7 @@ public class Team {
 	public int getInkasGoly() {
 		int sucet=0;
 		for (Hrac h : zoznamHracov) {
-			sucet+=h.getInkasGolov();
+			sucet+=h.getInkasGoly();
 		}
 		return sucet;
 	}
@@ -63,4 +63,8 @@ public class Team {
 	public void setIdTeamu(int idTeamu) {
 		this.idTeamu = idTeamu;
 	}
+	public List<Hrac> getZoznamHracov() {
+		return zoznamHracov;
+	}
+	
 }
