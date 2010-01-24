@@ -4,14 +4,12 @@
 
   * zakladne rozvrhnutie tried
   * generovanie zapasov z Bergerovych tabuliek
-  * load
+  * load  
+  * save
 
 === TODO ===
 
-  * gui
-  * save
-  * export do html - tabulka, statistiky
-  * ?export do sql?
+  * gui (johny)
+  * export do html - tabulka, statistiky (mirak)
+  * ?export do sql? 
   * statistiky - hraci (zoradovanie podla bodov, golov, asistencii, trestnych minut), brankari(zoradovanie podla poctu odchytanych minut, priemeru inkasovanych golov a celkoveho poctu inkasovanych golov...implementacia TBD)
-
-PS: uz mam nakreslene ako by mohli vyzerat niektore okna co sa tyka gui, zajtra oskenujem a drbnem sem
