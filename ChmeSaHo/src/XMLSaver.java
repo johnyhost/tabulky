@@ -25,7 +25,7 @@ public class XMLSaver {
 			
 			BufferedWriter bwout = new BufferedWriter(new FileWriter(filename));
 			bwout.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");bwout.newLine();
-			bwout.write("<!DOCTYPE LIGA SYSTEM \"liga.dtd\" >");bwout.newLine();
+			bwout.write("<!DOCTYPE LIGA SYSTEM \"Data\\liga.dtd\" >");bwout.newLine();
 			bwout.write("<LIGA>");bwout.newLine();
 			for(Team team: liga.getZoznamTeamov()){
 				for(String riadok: teamToXML(team)){
@@ -47,7 +47,7 @@ public class XMLSaver {
 	private ArrayList<String> hracToXML(Hrac hrac){
 		ArrayList<String> vysledok = new ArrayList<String>();
 		vysledok.add("		<HRAC>");
-		vysledok.add("			<IDHRACA>"+hrac.getMeno()+"</IDHRACA>");
+		vysledok.add("			<IDHRACA>"+hrac.getIdHraca()+"</IDHRACA>");
 		vysledok.add("			<MENO>"+hrac.getMeno()+"</MENO>");
 		for(int i=0;i<hrac.getIdZapasov().size();i++){
 			int idZapasu=hrac.getIdZapasov().get(i);
@@ -71,7 +71,7 @@ public class XMLSaver {
 		ArrayList<String> vysledok = new ArrayList<String>();
 		vysledok.add("	<TEAM>");
 		vysledok.add("		<IDTEAMU>"+team.getIdTeamu()+"</IDTEAMU>");
-		vysledok.add("		<MENO>"+team.getNazov()+"</MENO>");
+		vysledok.add("		<NAZOV>"+team.getNazov()+"</NAZOV>");
 		for(Hrac hrac: team.getZoznamHracov()){
 			vysledok.addAll(vysledok.size(), hracToXML(hrac));
 		}
@@ -81,7 +81,7 @@ public class XMLSaver {
 	private ArrayList<String> zapasToXML(Zapas zapas){
 		ArrayList<String> vysledok = new ArrayList<String>();
 		vysledok.add("	<ZAPAS>");
-		vysledok.add("		<IDTEAMU1>"+zapas.getIdZapasu()+"</IDTEAMU1>");
+		vysledok.add("		<IDZAPASU>"+zapas.getIdZapasu()+"</IDZAPASU>");
 		vysledok.add("		<IDTEAMU1>"+zapas.getIdTeamu1()+"</IDTEAMU1>");
 		vysledok.add("		<IDTEAMU2>"+zapas.getIdTeamu2()+"</IDTEAMU2>");
 		vysledok.add("		<VYSLEDOK>"+zapas.getVysledok()+"</VYSLEDOK>");		
