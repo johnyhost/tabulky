@@ -1,7 +1,3 @@
-/**
- * @author Laky
- * Trieda urcena na ukladanie, nacitanie a export dat
- */
 public class Data {
 	Liga liga;
 	public Data(Liga liga){
