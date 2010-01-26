@@ -1,3 +1,4 @@
+package zaklad;
 public class Data {
 	Liga liga;
 	public Data(Liga liga){

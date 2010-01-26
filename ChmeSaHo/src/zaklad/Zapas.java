@@ -1,3 +1,4 @@
+package zaklad;
 
 public class Zapas {
 	private int idZapasu;
