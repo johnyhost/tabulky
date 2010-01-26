@@ -1,3 +1,4 @@
+package zaklad;
 import java.util.ArrayList;
 import java.util.List;
 
