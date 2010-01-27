@@ -73,6 +73,7 @@ public class HlavneOkno extends JFrame{
 			            File file = fc.getSelectedFile();
 			            Data data = new Data();
 			            liga = data.loadXML(file.getAbsolutePath());
+			            aktualnyNazovSuboru=file.getName();
 			        }
 				} catch (IOException e1) {e1.printStackTrace();}
 				
@@ -148,6 +149,119 @@ public class HlavneOkno extends JFrame{
 			}
 		);
 		menuSubor.add(polozkaUlozLiguAko);
+		
+		menuSubor.add(new JSeparator());
+		
+		JMenu menuExport = new JMenu("Export");
+		
+		JMenuItem polozkaExportHtmlTeamy = new JMenuItem("Teamy do HTML");
+		polozkaExportHtmlTeamy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc;
+				try {
+					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
+					
+					int returnVal = fc.showSaveDialog(null);
+
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			            File file = fc.getSelectedFile();
+			            Data data = new Data(liga);
+			            if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
+			            	data.exportTeamyHTML(file.getAbsolutePath());
+			            } else {
+			            	data.exportTeamyHTML(file.getAbsolutePath()+".html");
+			            }
+			           
+			            
+			        }
+				} catch (IOException e1) {e1.printStackTrace();}
+				
+		        } 
+		    								
+			}
+		);
+		menuExport.add(polozkaExportHtmlTeamy);
+		
+		JMenuItem polozkaExportHtmlHraci = new JMenuItem("Hraci do HTML");
+		polozkaExportHtmlHraci.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc;
+				try {
+					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
+					int returnVal = fc.showSaveDialog(null);
+
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			            File file = fc.getSelectedFile();
+			            Data data = new Data(liga);
+			            if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
+			            	data.exportHraciHTML(file.getAbsolutePath());
+			            } else {
+			            	data.exportHraciHTML(file.getAbsolutePath()+".html");
+			            }
+			           
+			            
+			        }
+				} catch (IOException e1) {e1.printStackTrace();}
+				
+		        } 
+		    								
+			}
+		);
+		menuExport.add(polozkaExportHtmlHraci);
+		
+		JMenuItem polozkaExportHtmlZapasy = new JMenuItem("Zapasy do HTML");
+		polozkaExportHtmlZapasy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc;
+				try {
+					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
+					int returnVal = fc.showSaveDialog(null);
+
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			            File file = fc.getSelectedFile();
+			            Data data = new Data(liga);
+			            if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
+			            	data.exportZapasyHTML(file.getAbsolutePath());
+			            } else {
+			            	data.exportZapasyHTML(file.getAbsolutePath()+".html");
+			            }
+			           
+			            
+			        }
+				} catch (IOException e1) {e1.printStackTrace();}
+				
+		        } 
+		    								
+			}
+		);
+		menuExport.add(polozkaExportHtmlZapasy);
+		
+		JMenuItem polozkaExportSQL = new JMenuItem("Liga do SQL");
+		polozkaExportSQL.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc;
+				try {
+					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
+					fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+					int returnVal = fc.showSaveDialog(null);
+
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			            File file = fc.getSelectedFile();
+			            Data data = new Data(liga);			      
+			            
+			            data.exportSQL(file.getAbsolutePath()+"\\"+aktualnyNazovSuboru.substring(0, aktualnyNazovSuboru.indexOf(".xml")));
+			            	
+			            
+			        }
+				} catch (IOException e1) {e1.printStackTrace();}
+				
+		        } 
+		    								
+			}
+		);
+		menuExport.add(polozkaExportSQL);
+		
+		menuSubor.add(menuExport);
 		
 		menuSubor.add(new JSeparator());
 		
