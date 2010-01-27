@@ -25,8 +25,12 @@ public class XMLSaver {
 			}
 			
 			BufferedWriter bwout = new BufferedWriter(new FileWriter(filename));
+			if(liga==null) {
+				bwout.close();
+				return;
+			}
 			bwout.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");bwout.newLine();
-			bwout.write("<!DOCTYPE LIGA SYSTEM \"Data\\liga.dtd\" >");bwout.newLine();
+			//bwout.write("<!DOCTYPE LIGA SYSTEM \"Data\\liga.dtd\" >");bwout.newLine();
 			bwout.write("<LIGA>");bwout.newLine();
 			for(Team team: liga.getZoznamTeamov()){
 				for(String riadok: teamToXML(team)){
