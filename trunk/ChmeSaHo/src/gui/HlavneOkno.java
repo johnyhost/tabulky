@@ -277,6 +277,23 @@ public class HlavneOkno extends JFrame{
 		menuSubor.add(polozkaKoniec);
 		
 		horneMenu.add(menuSubor);
+		
+		JMenu menuNastroje = new JMenu("Nastroje");
+		
+		JMenuItem polozkaSpravaHracovATeamov = new JMenuItem("Sprava hracov a teamov");
+		polozkaSpravaHracovATeamov.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int odpoved;
+	    		odpoved = JOptionPane.showConfirmDialog(null, "Chces ukoncit program?","Okno",0);
+	    		if(odpoved==0)System.exit(0);
+		    	}							
+			}
+		);
+		
+		menuNastroje.add(polozkaSpravaHracovATeamov);
+		
+		horneMenu.add(menuNastroje);
+		
 		horneMenu.setVisible(true);
 		return horneMenu;
 	}
