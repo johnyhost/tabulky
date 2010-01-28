@@ -108,4 +108,26 @@ public class Liga {
 	public void addZapasZoznamZapasov(Zapas z) {
 		zoznamZapasov.add(z);
 	}
+	public List<Team> sortTeamy(List<Team> teamy) {
+		List<Team> zznmsrtd = new ArrayList<Team>();
+		while(!teamy.isEmpty()) {
+			Team teamK = teamy.get(0);
+			for (int i = 1; i < teamy.size(); i++) {
+				Team t = teamy.get(i);
+				if (t.getBody(getZoznamZapasovTeamu(t.getIdTeamu()))>=teamK.getBody(getZoznamZapasovTeamu(teamK.getIdTeamu()))) {
+					if (t.getBody(getZoznamZapasovTeamu(t.getIdTeamu()))==teamK.getBody(getZoznamZapasovTeamu(teamK.getIdTeamu()))) {
+						//ak sa rovna pocet bodov, kontrolujem rozdiel skore
+						if((t.getStrelGoly()-t.getInkasGoly()>teamK.getStrelGoly()-teamK.getInkasGoly())) {
+							teamK = teamy.get(i);
+						}
+					} else {
+						teamK = teamy.get(i);
+					}
+				}
+			}
+			zznmsrtd.add(teamK);
+			teamy.remove(teamK);			
+		}
+		return zznmsrtd;
+	}
 }
