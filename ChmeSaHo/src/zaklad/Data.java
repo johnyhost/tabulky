@@ -3,6 +3,7 @@ package zaklad;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class Data {
 	Liga liga;
@@ -26,6 +27,19 @@ public class Data {
 	public void exportHraciHTML(String filename){
 		// TODO metoda pre export hracov do HTML, treba teda vytvorit subor filename
 		// je zabezpecene aby subor obsahoval .htm resp. html, o to sa tu teda netreba starat
+		BufferedWriter bwout;
+		try {
+			bwout = new BufferedWriter(new FileWriter(filename));
+		
+		String output ="<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>";
+		
+		output+="</table>";
+		bwout.write(output);
+		bwout.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void exportTeamyHTML(String filename) {
 		// TODO metoda pre export tabulky teamov do HTML, treba teda vytvorit subor filename
@@ -37,9 +51,9 @@ public class Data {
 		String output ="<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>";
 		output+="<tr><td style='text-align: center;'>#</td><td> Team Name</td><td style='text-align: center;'>Z</td><td style='text-align: center;'>V</td><td style='text-align: center;'>R</td><td style='text-align: center;'>P</td>";
 		output+="<td style='text-align: center;'>Skore</td><td style='text-align: center;'>B</td></tr>";
-		
-		for (int i = 0; i < liga.getZoznamTeamov().size(); i++) {
-			Team t = liga.getZoznamTeamov().get(i);
+		List<Team> zoznamT = liga.sortTeamy(liga.getZoznamTeamov());
+		for (int i = 0; i < zoznamT.size(); i++) {
+			Team t = zoznamT.get(i);
 			output+="<tr>";
 			output+="<td style='text-align: center;'>"+(int)(i+1)+".</td><td>"+t.getNazov()+"</td><td style='text-align: center;'>"+liga.getZoznamZapasovTeamu(t.getIdTeamu()).size()+"</td>";
 			output+="<td style='text-align: center;'>"+t.getPocetVyhier(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getPocetRemiz(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getPocetPrehier(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getStrelGoly()+":"+t.getInkasGoly()+"</td><td style='text-align: center;'>"+t.getBody(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td>";
@@ -60,7 +74,7 @@ public class Data {
 		try {
 			bwout = new BufferedWriter(new FileWriter(filename));
 		
-		String output = "<table width='400'>";
+			String output ="<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>";
 		
 		for (int i = 0; i < liga.getZoznamZapasov().size(); i++) {
 			Zapas zapas = liga.getZoznamZapasov().get(i);
@@ -68,11 +82,11 @@ public class Data {
 			Team team2 = liga.getTeam(zapas.getIdTeamu2());
 			int gol1 = 0;
 			int gol2 = 0;
-			for (int j = 0; j < team1.getZoznamHracov().size(); j++) {
-				gol1 += team1.getZoznamHracov().get(j).getGoly(zapas.getIdZapasu());
+			for (Hrac h : team1.getZoznamHracov()) {
+				gol1 += h.getGoly(zapas.getIdZapasu());
 			}
-			for (int j = 0; j < team2.getZoznamHracov().size(); j++) {
-				gol2 += team2.getZoznamHracov().get(j).getGoly(zapas.getIdZapasu());
+			for (Hrac h : team2.getZoznamHracov()) {
+				gol2 += h.getGoly(zapas.getIdZapasu());
 			}
 			output+="<tr>";
 			output+="<td>"+team1.getNazov()+"</td><td>&nbsp;vs.&nbsp;</td><td>"+team2.getNazov()+"</td>";
