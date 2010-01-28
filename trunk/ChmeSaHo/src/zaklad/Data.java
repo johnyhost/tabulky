@@ -3,6 +3,7 @@ package zaklad;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
@@ -30,9 +31,41 @@ public class Data {
 		BufferedWriter bwout;
 		try {
 			bwout = new BufferedWriter(new FileWriter(filename));
-		
+		List<Hrac> zznmHracov = new ArrayList<Hrac>();
+		for (Team t : liga.getZoznamTeamov()) {
+			for (Hrac hrac : t.getZoznamHracov()) {
+				zznmHracov.add(hrac);
+			}
+		}
+		zznmHracov = liga.sortStatsHraci(zznmHracov);
 		String output ="<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>";
-		
+		output+="<tr><td>#</td><td>Meno</td><td>Team</td><td>Z</td><td>G</td><td>A</td><td>B</td><td>TM</td></tr>";
+		for (int i=0; i<zznmHracov.size();i++) {
+			Hrac h = zznmHracov.get(i);
+			output+="<tr>";
+			output+="<td>"+(int)(i+1)+"</td><td>"+h.getMeno()+"</td><td>TEAM</td><td>"+h.getOdohratychZapasov()+"</td><td>"+h.getGoly();
+			output+="</td><td>"+h.getAsist()+"</td><td>"+(h.getGoly()+h.getAsist())+"</td><td>"+h.getTrestMin()+"</td>";
+			output+="</tr>";
+		}
+		output+="</table><br /><br />";
+		bwout.write(output);
+					
+		//vytvorenie zoznamu brankarov
+		List<Hrac> zoznamBrankarov = new ArrayList<Hrac>();
+		for (Hrac hrac: zznmHracov) {
+			if(hrac.jeBrankar()) {
+				zoznamBrankarov.add(hrac);
+			}
+		}
+		zoznamBrankarov = liga.sortStatsBrankari(zoznamBrankarov);
+		output = "<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>";
+		output += "<tr><td>#</td><td>Meno</td><td>Team</td><td>OdchytMin</td><td>InkasGol</td><td>Priemer</td></tr>";
+		for (int i = 0; i < zoznamBrankarov.size(); i++) {
+			Hrac h = zoznamBrankarov.get(i);
+			output+="<tr>";
+			output+="<td>"+(int)(i+1)+"</td><td>"+h.getMeno()+"</td><td>TEAM</td><td>"+h.getOdchytMin()+"</td><td>"+h.getInkasGoly()+"</td><td>"+h.getPriemer(45)+"</td>";
+			output+="</tr>";
+		}
 		output+="</table>";
 		bwout.write(output);
 		bwout.close();

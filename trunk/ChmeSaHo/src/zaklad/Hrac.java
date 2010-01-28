@@ -47,7 +47,7 @@ public class Hrac {
 		}
 		if(sucet>0) return true; else return false;
 	}
-	public int pocetOdohratychZapasov() {
+	public int getOdohratychZapasov() {
 		int sucet=0;
 		for (boolean hral: hralZapas) {
 			if(hral) sucet++;

@@ -130,4 +130,46 @@ public class Liga {
 		}
 		return zznmsrtd;
 	}
+	public List<Hrac> sortStatsBrankari(List<Hrac> brankari) {
+		List<Hrac> sorted = new ArrayList<Hrac>();
+		while(!brankari.isEmpty()) {
+			Hrac brankar = brankari.get(0);
+			for (int i = 0; i < brankari.size(); i++) {
+				if(brankari.get(i).getPriemer(45)<=brankar.getPriemer(45)) {
+					if(brankari.get(i).getPriemer(45)==brankar.getPriemer(45)) {
+						if(brankari.get(i).getOdchytMin()>brankar.getOdchytMin()) {
+							brankar = brankari.get(i);
+						}
+					} else {
+						brankar = brankari.get(i);
+					}
+				}
+			}
+			sorted.add(brankar);
+			brankari.remove(brankar);
+		}
+	
+		return sorted;
+	}
+	public List<Hrac> sortStatsHraci(List<Hrac> hraci) {
+		List<Hrac> sorted = new ArrayList<Hrac>();
+		while(!hraci.isEmpty()) {
+			Hrac h = hraci.get(0);
+			for (int i = 0; i < hraci.size(); i++) {
+				if(hraci.get(i).getGoly()+hraci.get(i).getAsist()>=h.getGoly()+h.getAsist()) {
+					if(hraci.get(i).getGoly()+hraci.get(i).getAsist()==h.getGoly()+h.getAsist()) {
+						//ak maju dvaja hraci rovnaky pocet bodov, ide dalsie porovnavanie
+						if(hraci.get(i).getGoly()>h.getGoly()) {
+							h = hraci.get(i);
+						} else if(hraci.get(i).getOdohratychZapasov()<h.getOdohratychZapasov()) {
+								h = hraci.get(i);
+						}
+					}
+				}
+			}
+			sorted.add(h);
+			hraci.remove(h);
+		}
+		return sorted;
+	}
 }
