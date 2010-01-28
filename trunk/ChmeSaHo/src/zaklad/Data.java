@@ -66,9 +66,17 @@ public class Data {
 			Zapas zapas = liga.getZoznamZapasov().get(i);
 			Team team1 =  liga.getTeam(zapas.getIdTeamu1());
 			Team team2 = liga.getTeam(zapas.getIdTeamu2());
+			int gol1 = 0;
+			int gol2 = 0;
+			for (int j = 0; j < team1.getZoznamHracov().size(); j++) {
+				gol1 += team1.getZoznamHracov().get(j).getGoly(zapas.getIdZapasu());
+			}
+			for (int j = 0; j < team2.getZoznamHracov().size(); j++) {
+				gol2 += team2.getZoznamHracov().get(j).getGoly(zapas.getIdZapasu());
+			}
 			output+="<tr>";
 			output+="<td>"+team1.getNazov()+"</td><td>&nbsp;vs.&nbsp;</td><td>"+team2.getNazov()+"</td>";
-			output+="<td>"+"</td><td>:</td><td>"+"</td>";
+			output+="<td>"+gol1+"</td><td>:</td><td>"+gol2+"</td>";
 			output+="</tr>";
 		}
 		output+="</table>";
