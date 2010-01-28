@@ -85,7 +85,8 @@ public class Data {
 		output+="<tr><td style='text-align: center;'>#</td><td> Team Name</td><td style='text-align: center;'>Z</td><td style='text-align: center;'>V</td><td style='text-align: center;'>R</td><td style='text-align: center;'>P</td>";
 		output+="<td style='text-align: center;'>Skore</td><td style='text-align: center;'>B</td></tr>";
 		List<Team> zoznamT = liga.sortTeamy(liga.getZoznamTeamov());
-		for (int i = 0; i < zoznamT.size(); i++) {
+		// cyklus ide od konca do zaciatku, aby boli teamy zoradene od najlepsieho
+		for (int i = zoznamT.size()-1; i>=0 ; i--) {
 			Team t = zoznamT.get(i);
 			output+="<tr>";
 			output+="<td style='text-align: center;'>"+(int)(i+1)+".</td><td>"+t.getNazov()+"</td><td style='text-align: center;'>"+liga.getZoznamZapasovTeamu(t.getIdTeamu()).size()+"</td>";
