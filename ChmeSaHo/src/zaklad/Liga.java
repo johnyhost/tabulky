@@ -1,9 +1,6 @@
 package zaklad;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +14,7 @@ import porovnavanie.TeamByStats;
 public class Liga {
 	private List<Team> zoznamTeamov;
 	private List<Zapas> zoznamZapasov;
+	private int dlzkaZapasu;
 	public Liga() {
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
@@ -116,6 +114,12 @@ public class Liga {
 	public List<Zapas> getZoznamZapasov() {
 		return zoznamZapasov;
 	}
+	public int getDlzkaZapasu() {
+		return dlzkaZapasu;
+	}
+	public void setDlzkaZapasu(int dlzkaZapasu) {
+		this.dlzkaZapasu = dlzkaZapasu;
+	}
 	public void addTeamZoznamTeamov(Team t) {
 		zoznamTeamov.add(t);
 	}
@@ -123,7 +127,7 @@ public class Liga {
 		zoznamZapasov.add(z);
 	}
 	public List<Team> sortTeamy(List<Team> teamy) {		
-		Collections.sort(teamy,new TeamByStats(this));		
+		Collections.sort(teamy,new TeamByStats(this));
 		return teamy;
 	}
 	public List<Hrac> sortStatsBrankari(List<Hrac> brankari) {
