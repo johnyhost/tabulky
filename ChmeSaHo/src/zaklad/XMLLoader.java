@@ -66,7 +66,7 @@ public class XMLLoader extends DefaultHandler{
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
 		if(qName.equals("TEAM")) {
-			liga.zoznamTeamov.add(tempTeam);			
+			liga.addTeamZoznamTeamov(tempTeam);			
 		}else if (qName.equals("IDTEAMU")) {
 			tempTeam.setIdTeamu(Integer.parseInt(tempStr));
 		}else if (qName.equals("NAZOV")) {
@@ -100,7 +100,7 @@ public class XMLLoader extends DefaultHandler{
 		}else if (qName.equals("VYSLEDOK")) {
 			tempZapas.setVysledok(Integer.parseInt(tempStr));
 		}else if (qName.equals("ZAPAS")) {
-			liga.zoznamZapasov.add(tempZapas);
+			liga.addZapasZoznamZapasov(tempZapas);
 		}
 		
 		//else if (qName.equals("")) {}

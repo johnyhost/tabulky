@@ -67,5 +67,45 @@ public class Team {
 	public List<Hrac> getZoznamHracov() {
 		return zoznamHracov;
 	}
-	
+	public int getPocetVyhier(List<Zapas> zapasy) {
+		int pocetVyhier = 0;
+		for (Zapas z : zapasy) {
+			if(z.getIdTeamu1()==idTeamu){
+				if(z.getVysledok()==1) { // ak vyhral team 1
+					pocetVyhier++;
+				}
+			}
+			if(z.getIdTeamu2()==idTeamu){
+				if(z.getVysledok()==2) { // ak vyhral team 2
+					pocetVyhier++;
+				}
+			}
+		}
+		return pocetVyhier;
+	}
+	public int getPocetRemiz(List<Zapas> zapasy) {
+		int pocetRemiz = 0;
+		for (Zapas z : zapasy) {
+			if(z.getVysledok()==0){
+				pocetRemiz++;
+			}
+		}
+		return pocetRemiz;
+	}
+	public int getPocetPrehier(List<Zapas> zapasy) {
+		int pocetPrehier = 0;
+		for (Zapas z : zapasy) {
+			if(z.getIdTeamu1()==idTeamu){
+				if(z.getVysledok()==2) { // ak vyhral team 1
+					pocetPrehier++;
+				}
+			}
+			if(z.getIdTeamu2()==idTeamu){
+				if(z.getVysledok()==1) { // ak vyhral team 2
+					pocetPrehier++;
+				}
+			}
+		}
+		return pocetPrehier;
+	}
 }

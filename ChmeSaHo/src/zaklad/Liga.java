@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 
 public class Liga {
-	List<Team> zoznamTeamov;
-	List<Zapas> zoznamZapasov;
+	private List<Team> zoznamTeamov;
+	private List<Zapas> zoznamZapasov;
 	public Liga() {
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
@@ -67,7 +67,7 @@ public class Liga {
 	}
 	public Team getTeam(String nazovTeamu){
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
-			if(zoznamTeamov.get(i).getNazov()==nazovTeamu) return zoznamTeamov.get(i);
+			if(zoznamTeamov.get(i).getNazov().equals(nazovTeamu)) return zoznamTeamov.get(i);
 		} 
 		return null;
 	}
@@ -102,26 +102,10 @@ public class Liga {
 	public List<Zapas> getZoznamZapasov() {
 		return zoznamZapasov;
 	}
-	public void exportHtmlTabulka(String s) throws IOException {
-		//s je cesta k suboru
-		if(!s.contains(".htm")) {
-			s+=".html";
-		}
-		BufferedWriter bwout = new BufferedWriter(new FileWriter(s));
-		String output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"><html>  <head>  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf8\">  <meta name=\"generator\" content=\"PSPad editor, www.pspad.com\">  <title></title>  </head><body>";
-		output+="<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>";
-		output+="<tr><td style='text-align: center;'>#</td><td> Team Name</td><td style='text-align: center;'>Z</td><td style='text-align: center;'>V</td><td style='text-align: center;'>R</td><td style='text-align: center;'>P</td>";
-		output+="<td style='text-align: center;'>Skore</td><td style='text-align: center;'>B</td></tr>";
-		for (int i = 0; i < zoznamTeamov.size(); i++) {
-			Team t = zoznamTeamov.get(i);
-			output+="<tr>";
-			output+="<td style='text-align: center;'>"+(int)(i+1)+".</td><td>"+t.getNazov()+"</td><td style='text-align: center;'>"+getZoznamZapasovTeamu(t.getIdTeamu()).size()+"</td>";
-			output+="<td style='text-align: center;'>v</td><td style='text-align: center;'>r</td><td style='text-align: center;'>p</td><td style='text-align: center;'>"+t.getStrelGoly()+":"+t.getInkasGoly()+"</td><td style='text-align: center;'>"+t.getBody(getZoznamZapasovTeamu(t.getIdTeamu()))+"</td>";
-			output+="</tr>";
-		}
-		
-		output+="</body></html>";
-		bwout.write(output);
-		bwout.close();
+	public void addTeamZoznamTeamov(Team t) {
+		zoznamTeamov.add(t);
+	}
+	public void addZapasZoznamZapasov(Zapas z) {
+		zoznamZapasov.add(z);
 	}
 }

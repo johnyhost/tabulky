@@ -154,7 +154,7 @@ public class HlavneOkno extends JFrame{
 		
 		JMenu menuExport = new JMenu("Export");
 		
-		JMenuItem polozkaExportHtmlTeamy = new JMenuItem("Teamy do HTML");
+		JMenuItem polozkaExportHtmlTeamy = new JMenuItem("Tabulka do HTML");
 		polozkaExportHtmlTeamy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
@@ -182,7 +182,7 @@ public class HlavneOkno extends JFrame{
 		);
 		menuExport.add(polozkaExportHtmlTeamy);
 		
-		JMenuItem polozkaExportHtmlHraci = new JMenuItem("Hraci do HTML");
+		JMenuItem polozkaExportHtmlHraci = new JMenuItem("Statistiky do HTML");
 		polozkaExportHtmlHraci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
