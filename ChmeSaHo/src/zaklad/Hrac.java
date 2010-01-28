@@ -37,7 +37,7 @@ public class Hrac {
 		for(int i=0;i< idZapasov.size();i++){
 			if(idZapasu==idZapasov.get(i)) return i;
 		}
-		System.err.println("CHYBA: Hraca sa netyka zapas s takymto ligovym ID:"+idZapasu);
+		//System.err.println("CHYBA: Hraca s ID"+idHraca+" sa netyka zapas s takymto ligovym ID:"+idZapasu);
 		return 0;
 	}
 	public boolean jeBrankar() {
