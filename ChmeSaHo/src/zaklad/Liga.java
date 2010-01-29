@@ -155,4 +155,25 @@ public class Liga {
 		} 
 		return vysledok;
 	}
+	public List<Hrac> getZoznamBrankarov(){
+		List<Hrac> vysledok = new ArrayList<Hrac>();
+		for (int i = 0; i < zoznamTeamov.size(); i++) {
+			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
+				if(zoznamTeamov.get(i).getZoznamHracov().get(j).jeBrankar()==true)vysledok.add(zoznamTeamov.get(i).getZoznamHracov().get(j));
+			}
+			
+		} 
+		return vysledok;
+	}
+	public List<Hrac> getZoznamNebrankarov(){
+		List<Hrac> vysledok = new ArrayList<Hrac>();
+		for (int i = 0; i < zoznamTeamov.size(); i++) {
+			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
+				if(zoznamTeamov.get(i).getZoznamHracov().get(j).jeBrankar()==false)vysledok.add(zoznamTeamov.get(i).getZoznamHracov().get(j));
+			}
+			
+		} 
+		return vysledok;
+	}
+	
 }
