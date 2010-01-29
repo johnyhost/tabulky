@@ -27,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
@@ -344,7 +345,8 @@ public class HlavneOkno extends JFrame{
 			c.weightx = 0.75;
 			c.gridx = 0;
 			c.gridy = 1;	
-			hlavnyPanel.add(lavyPanel,c);
+			JScrollPane scrollpane = new JScrollPane(lavyPanel);
+			hlavnyPanel.add(scrollpane,c);
 			
 			JPanel pravyPanel = vytvorPravyPanel();
 			//pravyPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
@@ -419,7 +421,7 @@ public class HlavneOkno extends JFrame{
 		}
 		if(obsahHlavnejCasti==1){
 			panel=vytvorPanelSpravaHAT();
-		}
+		}		
 		return panel;		
 	}
 	private JPanel vytvorPanelSpravaHAT(){
