@@ -212,6 +212,7 @@ public class Data {
 				bwout.newLine();
 			}
 			zoznamNaVypis.clear();
+			bwout.newLine();
 			//vytvorenie tabulky so zapasmi
 			zoznamNaVypis.add("IF OBJECT_ID ('dbo.Zapasy') IS NOT NULL DROP TABLE dbo.Zapasy");
 			zoznamNaVypis.add("GO");
