@@ -134,7 +134,7 @@ public class Liga {
 		zoznamZapasov.add(z);
 	}
 	public List<Team> sortTeamy(List<Team> teamy) {		
-		Collections.sort(teamy,new TeamByStats(this));
+		Collections.sort(teamy,Collections.reverseOrder(new TeamByStats(this)));
 		return teamy;
 	}
 	public List<Hrac> sortStatsBrankari(List<Hrac> brankari) {
@@ -142,7 +142,7 @@ public class Liga {
 		return brankari;
 	}
 	public List<Hrac> sortStatsHraci(List<Hrac> hraci) {
-		Collections.sort(hraci,new HracByStats(this));		
+		Collections.sort(hraci,Collections.reverseOrder(new HracByStats(this)));
 		return hraci;
 	}
 }
