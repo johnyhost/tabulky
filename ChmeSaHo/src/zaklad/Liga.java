@@ -145,4 +145,14 @@ public class Liga {
 		Collections.sort(hraci,Collections.reverseOrder(new HracByStats(this)));
 		return hraci;
 	}
+	public List<Hrac> getZoznamHracov(){
+		List<Hrac> vysledok = new ArrayList<Hrac>();
+		for (int i = 0; i < zoznamTeamov.size(); i++) {
+			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
+				vysledok.add(zoznamTeamov.get(i).getZoznamHracov().get(j));
+			}
+			
+		} 
+		return vysledok;
+	}
 }
