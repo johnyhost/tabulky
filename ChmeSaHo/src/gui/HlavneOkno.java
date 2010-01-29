@@ -3,6 +3,9 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -40,6 +44,7 @@ public class HlavneOkno extends JFrame{
 		
 	}
 	private void init(){
+		this.setPreferredSize(new Dimension(800, 600));
 		this.setJMenuBar(vytvorHorneMenu());
 		this.setContentPane(vytvorHlavnyPanel());
 	}
@@ -54,6 +59,7 @@ public class HlavneOkno extends JFrame{
 		polozkaNovaLiga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				liga = new Liga();
+				reset();
 		    	}							
 			}
 		);
@@ -74,6 +80,7 @@ public class HlavneOkno extends JFrame{
 			            Data data = new Data();
 			            liga = data.loadXML(file.getAbsolutePath());
 			            aktualnyNazovSuboru=file.getName();
+			            reset();
 			        }
 				} catch (IOException e1) {e1.printStackTrace();}
 				
@@ -299,18 +306,58 @@ public class HlavneOkno extends JFrame{
 	}
 	private JPanel vytvorHlavnyPanel(){
 		JPanel hlavnyPanel = new JPanel();
-		//hlavnyPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		hlavnyPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		hlavnyPanel.setBounds(this.getBounds());
-		setPreferredSize(new Dimension(800, 600));
+		hlavnyPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		if(liga!=null){
+			// ak je liga nacitana, zobraz zvysok gui
+			JPanel hornyPanel = new JPanel();
+			hornyPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+			JLabel nazovLigy = new JLabel(liga.getNazovLigy());
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.anchor = GridBagConstraints.PAGE_START;
+			c.gridwidth = 2;
+			c.weightx = 0.0;
+			c.gridx = 0;
+			c.gridy = 0;			
+			hornyPanel.add(nazovLigy);
+			hlavnyPanel.add(hornyPanel,c);
+			
+			JPanel lavyPanel = new JPanel();
+			lavyPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+			c.fill = GridBagConstraints.BOTH;	
+			c.weighty = 1.0;
+			c.anchor = GridBagConstraints.PAGE_END;
+			c.gridwidth = 1;
+			c.weightx = 0.75;
+			c.gridx = 0;
+			c.gridy = 1;	
+			hlavnyPanel.add(lavyPanel,c);
+			
+			JPanel pravyPanel = vytvorPravyPanel();
+			pravyPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
+			c.weighty = 1.0;
+			c.gridwidth = 1;
+			c.weightx = 0.25;
+			c.gridx = 1;
+			c.gridy = 1;	
+			hlavnyPanel.add(pravyPanel,c);
+			
+		}
 		
 		return hlavnyPanel;
 	}
-	
-	private void refresh(){
+	private JPanel vytvorPravyPanel(){
+		JPanel panel = new JPanel();
 		
+		return panel;		
 	}
 	private void reset(){
-		this.setVisible(false);
+		//this.setVisible(false);
+		this.setJMenuBar(vytvorHorneMenu());
+		this.setContentPane(vytvorHlavnyPanel());
 		this.pack();
 		this.setVisible(true);		
 	}
