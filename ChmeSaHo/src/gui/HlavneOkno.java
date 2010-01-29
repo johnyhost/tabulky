@@ -528,7 +528,7 @@ public class HlavneOkno extends JFrame{
 						String response = JOptionPane.showInputDialog(null,
 								  "Zadajte meno hraca",
 								  "Meno hraca",
-								  JOptionPane.QUESTION_MESSAGE);
+								  JOptionPane.QUESTION_MESSAGE); if(response!=null && response!="") if(response!=null && response!="")
 						liga.getZoznamTeamov().get(idTeamu2).getZoznamHracov().get(idHraca).setMeno(response);
 						reset();
 					}
@@ -572,7 +572,7 @@ public class HlavneOkno extends JFrame{
 					String response = JOptionPane.showInputDialog(null,
 							  "Zadajte meno hraca",
 							  "Meno hraca",
-							  JOptionPane.QUESTION_MESSAGE);
+							  JOptionPane.QUESTION_MESSAGE); if(response!=null && response!="")
 					liga.getZoznamTeamov().get(idTeamu2).getZoznamHracov().add(new Hrac(pocetHracov+1,response));
 					reset();
 				}
@@ -614,7 +614,7 @@ public class HlavneOkno extends JFrame{
 				String response = JOptionPane.showInputDialog(null,
 						  "Zadajte nazov teamu",
 						  "Nazov teamu",
-						  JOptionPane.QUESTION_MESSAGE);
+						  JOptionPane.QUESTION_MESSAGE); if(response!=null && response!="")
 				liga.getZoznamTeamov().add(new Team(response,idTeamu));
 				reset();
 			}
