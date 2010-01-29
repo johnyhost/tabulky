@@ -44,7 +44,7 @@ public class Data {
 		for (int i=0; i<zznmHracov.size();i++) {
 			Hrac h = zznmHracov.get(i);
 			output+="<tr>";
-			output+="<td style='text-align: center;'>"+(int)(i+1)+"</td><td>&nbsp;"+h.getMeno()+"</td><td style='text-align: center;'>TEAM</td><td style='text-align: center;'>"+h.getOdohratychZapasov()+"</td><td style='text-align: center;'>"+h.getGoly();
+			output+="<td style='text-align: center;'>"+(int)(i+1)+"</td><td>&nbsp;"+h.getMeno()+"</td><td style='text-align: center;'>"+liga.getTeamHraca(h.getIdHraca()).getNazov()+"</td><td style='text-align: center;'>"+h.getOdohratychZapasov()+"</td><td style='text-align: center;'>"+h.getGoly();
 			output+="</td><td style='text-align: center;'>"+h.getAsist()+"</td><td style='text-align: center;'>"+(h.getGoly()+h.getAsist())+"</td><td style='text-align: center;'>"+h.getTrestMin()+"</td>";
 			output+="</tr>";
 		}
@@ -64,7 +64,7 @@ public class Data {
 		for (int i = 0; i < zoznamBrankarov.size(); i++) {
 			Hrac h = zoznamBrankarov.get(i);
 			output+="<tr>";
-			output+="<td style='text-align: center;'>"+(int)(i+1)+".</td><td>&nbsp;"+h.getMeno()+"</td><td style='text-align: center;'>TEAM</td><td style='text-align: center;'>"+h.getOdchytMin()+"</td><td style='text-align: center;'>"+h.getInkasGoly()+"</td><td style='text-align: center;'>"+h.getPriemer(45)+"</td>";
+			output+="<td style='text-align: center;'>"+(int)(i+1)+".</td><td>&nbsp;"+h.getMeno()+"</td><td style='text-align: center;'>"+liga.getTeamHraca(h.getIdHraca()).getNazov()+"</td><td style='text-align: center;'>"+h.getOdchytMin()+"</td><td style='text-align: center;'>"+h.getInkasGoly()+"</td><td style='text-align: center;'>"+h.getPriemer(45)+"</td>";
 			output+="</tr>";
 		}
 		output+="</table>";
