@@ -93,7 +93,8 @@ public class Hrac {
 	}
 	public double getPriemer(int dlzkaZapasu) {
 		//priemer golu na zapas
-		return getInkasGoly()/(getOdchytMin()/dlzkaZapasu);
+		double odchZap = getOdchytMin()/dlzkaZapasu;
+		return (double)(getInkasGoly()/odchZap);
 	}
 	public void nehralZapas(int idZapasu){
 		idZapasov.add(idZapasu);

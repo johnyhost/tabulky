@@ -36,7 +36,7 @@
         <GOLY>0</GOLY>
         <ASIST>0</ASIST>
         <TRESTMIN>0</TRESTMIN>
-        <ODCHYTMIN>60</ODCHYTMIN>
+        <ODCHYTMIN>45</ODCHYTMIN>
         <INKASGOLY>3</INKASGOLY>
       </DATAZAPASU>
       <DATAZAPASU>
@@ -45,7 +45,7 @@
         <GOLY>0</GOLY>
         <ASIST>0</ASIST>
         <TRESTMIN>0</TRESTMIN>
-        <ODCHYTMIN>60</ODCHYTMIN>
+        <ODCHYTMIN>45</ODCHYTMIN>
         <INKASGOLY>8</INKASGOLY>
       </DATAZAPASU>
     </HRAC>
@@ -84,7 +84,7 @@
         <GOLY>0</GOLY>
         <ASIST>0</ASIST>
         <TRESTMIN>0</TRESTMIN>
-        <ODCHYTMIN>60</ODCHYTMIN>
+        <ODCHYTMIN>45</ODCHYTMIN>
         <INKASGOLY>20</INKASGOLY>
       </DATAZAPASU>
       <DATAZAPASU>
@@ -93,7 +93,7 @@
         <GOLY>0</GOLY>
         <ASIST>0</ASIST>
         <TRESTMIN>0</TRESTMIN>
-        <ODCHYTMIN>60</ODCHYTMIN>
+        <ODCHYTMIN>45</ODCHYTMIN>
         <INKASGOLY>3</INKASGOLY>
       </DATAZAPASU>
     </HRAC>
