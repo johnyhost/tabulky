@@ -32,6 +32,8 @@ public class XMLSaver {
 			bwout.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");bwout.newLine();
 			//bwout.write("<!DOCTYPE LIGA SYSTEM \"Data\\liga.dtd\" >");bwout.newLine();
 			bwout.write("<LIGA>");bwout.newLine();
+			bwout.write("	<NAZOVLIGY>"+liga.getNazovLigy()+"</NAZOVLIGY>");bwout.newLine();
+			bwout.write("	<DLZKAZAPASU>"+liga.getDlzkaZapasu()+"</DLZKAZAPASU>");bwout.newLine();
 			for(Team team: liga.getZoznamTeamov()){
 				for(String riadok: teamToXML(team)){
 					bwout.write(riadok);bwout.newLine();

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LIGA>
+  <NAZOVLIGY>Testovacia Liga</NAZOVLIGY>
+  <DLZKAZAPASU>45</DLZKAZAPASU>
   <TEAM>
     <IDTEAMU>1</IDTEAMU>
     <NAZOV>PROTEAM</NAZOV>

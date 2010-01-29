@@ -15,6 +15,7 @@ public class Liga {
 	private List<Team> zoznamTeamov;
 	private List<Zapas> zoznamZapasov;
 	private int dlzkaZapasu;
+	private String nazovLigy;
 	public Liga() {
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
@@ -119,6 +120,12 @@ public class Liga {
 	}
 	public void setDlzkaZapasu(int dlzkaZapasu) {
 		this.dlzkaZapasu = dlzkaZapasu;
+	}
+	public String getNazovLigy() {
+		return nazovLigy;
+	}
+	public void setNazovLigy(String nazovLigy) {
+		this.nazovLigy = nazovLigy;
 	}
 	public void addTeamZoznamTeamov(Team t) {
 		zoznamTeamov.add(t);
