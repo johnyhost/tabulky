@@ -9,6 +9,7 @@ public class Zapas {
 		this.idZapasu = idZapasu;
 		this.idTeamu1 = idTeam1;
 		this.idTeamu2 = idTeam2;
+		this.vysledok = -1;
 	}
 	public Zapas(){
 		
