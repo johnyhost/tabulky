@@ -70,6 +70,7 @@ public class Data {
 		output+="</table>";
 		bwout.write(output);
 		bwout.close();
+		System.out.println("export hracov do html ukonceny");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,6 +98,7 @@ public class Data {
 		output+="</table>";
 		bwout.write(output);
 		bwout.close();
+		System.out.println("export teamov do html ukonceny");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,6 +133,7 @@ public class Data {
 		output+="</table>";
 		bwout.write(output);
 		bwout.close();
+		System.out.println("export zapasov do html ukonceny");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,5 +145,103 @@ public class Data {
 		// treba teda vytvorit subory X:\\Adresar\\ktory\\uzivatel\\zvolil\\nazovligy_teamy.sql
 		// X:\\Adresar\\ktory\\uzivatel\\zvolil\\nazovligy_hraci.sql
 		// X:\\Adresar\\ktory\\uzivatel\\zvolil\\nazovligy_zapasy.sql
+		
+		try {
+			BufferedWriter bwout = new BufferedWriter(new FileWriter(cesta));
+			//vytvorenie databazy
+			List<String> zoznamNaVypis = new ArrayList<String>();
+			zoznamNaVypis.add("IF DB_ID ('Tabulkator') IS NOT NULL DROP DATABASE Tabulkator");
+			zoznamNaVypis.add("GO");
+			zoznamNaVypis.add("CREATE DATABASE Tabulkator");
+			zoznamNaVypis.add("GO");
+			zoznamNaVypis.add("USE Tabulkator");
+			zoznamNaVypis.add("GO");
+			zoznamNaVypis.add("");
+			//vytvorenie tabulky s udajmi o teamoch
+			zoznamNaVypis.add("IF OBJECT_ID ('dbo.Teamy') IS NOT NULL DROP TABLE dbo.Teamy");
+			zoznamNaVypis.add("GO");
+			zoznamNaVypis.add("CREATE TABLE Teamy (id INT NOT NULL PRIMARY KEY, nazov VARCHAR(20), z INT, v INT, r INT, p INT, golyPlus INT, golyMinus INT, body INT)");
+			zoznamNaVypis.add("GO");
+			for (Team team: liga.getZoznamTeamov()) {
+				String riadok = "INSERT Teamy VALUES ("+team.getIdTeamu()+", '"+team.getNazov()+"',"+liga.getZoznamZapasovTeamu(team.getIdTeamu()).size()+", ";
+				riadok+=team.getPocetVyhier(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getPocetRemiz(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getPocetPrehier(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getStrelGoly()+", "+team.getInkasGoly()+", "+team.getBody(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+"); ";
+				zoznamNaVypis.add(riadok);
+			}
+			for (String line : zoznamNaVypis) {
+				bwout.write(line);
+				bwout.newLine();
+			}
+			zoznamNaVypis.clear();
+			bwout.newLine();
+			//vytvorenie tabulky s udajmi o hracoch
+			zoznamNaVypis.add("IF OBJECT_ID ('dbo.Hraci') IS NOT NULL DROP TABLE dbo.Hraci");
+			zoznamNaVypis.add("GO");
+			zoznamNaVypis.add("CREATE TABLE Hraci (id INT NOT NULL PRIMARY KEY, meno VARCHAR(30), idTeamu INT NOT NULL, z INT, g INT, a INT, b INT, tm INT)");
+			zoznamNaVypis.add("GO");
+			int id=1;
+			for (Team team : liga.getZoznamTeamov()) {
+				for (Hrac hrac : team.getZoznamHracov()) {
+					String riadok ="INSERT Hraci VALUES ("+id+", '"+hrac.getMeno()+"', "+team.getIdTeamu()+", "+hrac.getOdohratychZapasov()+", "+hrac.getGoly();
+					riadok+=", "+hrac.getAsist()+", "+(hrac.getGoly()+hrac.getAsist())+", "+hrac.getTrestMin()+"); ";
+					zoznamNaVypis.add(riadok);
+					id++;
+				}
+			}
+			for (String line : zoznamNaVypis) {
+				bwout.write(line);
+				bwout.newLine();
+			}
+			zoznamNaVypis.clear();
+			bwout.newLine();
+			//vytvorenie tabulky s udajmi o brankaroch
+			zoznamNaVypis.add("IF OBJECT_ID ('dbo.Brankari') IS NOT NULL DROP TABLE dbo.Brankari");
+			zoznamNaVypis.add("GO");
+			zoznamNaVypis.add("CREATE TABLE Brankari (id INT NOT NULL PRIMARY KEY, meno VARCHAR(30), idTeamu INT NOT NULL, odchytMin INT, inkasGol INT, priemer REAL)");
+			zoznamNaVypis.add("GO");
+			id=1;
+			for (Team team : liga.getZoznamTeamov()) {
+				for (Hrac hrac : team.getZoznamHracov()) {
+					if(hrac.jeBrankar()) {
+						zoznamNaVypis.add("INSERT Brankari VALUES ("+id+", '"+hrac.getMeno()+"', "+team.getIdTeamu()+", "+hrac.getOdchytMin()+", "+hrac.getInkasGoly()+", "+hrac.getPriemer(liga.getDlzkaZapasu())+" ); ");
+						id++;
+					}
+				}
+			}
+			for (String line : zoznamNaVypis) {
+				bwout.write(line);
+				bwout.newLine();
+			}
+			zoznamNaVypis.clear();
+			//vytvorenie tabulky so zapasmi
+			zoznamNaVypis.add("IF OBJECT_ID ('dbo.Zapasy') IS NOT NULL DROP TABLE dbo.Zapasy");
+			zoznamNaVypis.add("GO");
+			zoznamNaVypis.add("CREATE TABLE Zapasy (id INT NOT NULL PRIMARY KEY, idTeam1 INT, idTeam2 INT, golyTeam1 INT, golyTeam2 INT)");
+			zoznamNaVypis.add("GO");
+			for (Zapas zapas : liga.getZoznamZapasov()) {
+				String riadok ="INSERT Zapasy VALUES ( "+zapas.getIdZapasu()+", "+zapas.getIdTeamu1()+", "+zapas.getIdTeamu2()+", ";
+				int gol1 = 0;
+				int gol2 = 0;
+				for (Hrac h : liga.getTeam(zapas.getIdTeamu1()).getZoznamHracov()) {
+					gol1 += h.getGoly(zapas.getIdZapasu());
+				}
+				for (Hrac h : liga.getTeam(zapas.getIdTeamu2()).getZoznamHracov()) {
+					gol2 += h.getGoly(zapas.getIdZapasu());
+				}
+				riadok+=gol1+", "+gol2+"); ";
+				zoznamNaVypis.add(riadok);
+			}
+			for (String line : zoznamNaVypis) {
+				bwout.write(line);
+				bwout.newLine();
+			}
+			zoznamNaVypis.clear();
+			//uzatvorenie
+			bwout.close();
+			System.out.println("export do sql ukonceny");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
