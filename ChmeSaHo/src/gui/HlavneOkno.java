@@ -310,6 +310,17 @@ public class HlavneOkno extends JFrame{
 		
 		menuNastroje.add(polozkaSpravaHracovATeamov);
 		
+		JMenuItem polozkaSpravaZapasov = new JMenuItem("Sprava zapasov");
+		polozkaSpravaZapasov.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				obsahHlavnejCasti=2;		
+				reset();
+			}
+		}
+		);
+		
+		menuNastroje.add(polozkaSpravaZapasov);
+		
 		horneMenu.add(menuNastroje);
 		
 		horneMenu.setVisible(true);
@@ -382,36 +393,123 @@ public class HlavneOkno extends JFrame{
 	}
 	private JPanel vytvorPanelTop10Hraci(){
 		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weightx = 1;
+		c.gridwidth = 5;
+		c.gridx = 0;
+		c.gridy = 0;
 		nadpis.add(new JLabel("TOP 10 Hraci"));
-		panel.add(nadpis);
-		panel.setLayout(new GridLayout(12,1));
+		panel.add(nadpis,c);
+		c.insets = new Insets(5,5,2,2);
+		c.gridwidth = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weightx = 0.6;
+		c.gridx = 0;
+		c.gridy = 1;
+		panel.add(new JLabel("Meno"),c);
+		c.weightx = 0.1;
+		c.gridx = 1;
+		panel.add(new JLabel("G"),c);
+		c.gridx = 2;
+		panel.add(new JLabel("A"),c);
+		c.gridx = 3;
+		panel.add(new JLabel("OZ"),c);
+		c.gridx = 4;
+		panel.add(new JLabel("TM"),c);
+		
 		List<Hrac> hraci = liga.getZoznamNebrankarov();
 		Collections.sort(hraci,Collections.reverseOrder(new HracByStats(liga))); 
-		panel.add(vytvorPanelNadpisTop10Hraci());
+		
 		for(int i=0;i<Math.min(10, hraci.size());i++){
-			
-			panel.add(vytvorPanelHraca(hraci.get(i)));
-			
+			Hrac hrac = hraci.get(i);
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.anchor = GridBagConstraints.NORTH;
+			c.weightx = 0.6;
+			c.gridx = 0;			
+			c.gridy = i+2;
+			panel.add(new JLabel(hrac.getMeno()+""),c);
+			c.weightx = 0.1;
+			c.gridx = 1;
+			panel.add(new JLabel(hrac.getGoly()+""),c);
+			c.gridx = 2;
+			panel.add(new JLabel(hrac.getAsist()+""),c);
+			c.gridx = 3;
+			panel.add(new JLabel(hrac.getOdohratychZapasov()+""),c);
+			c.gridx = 4;
+			panel.add(new JLabel(hrac.getTrestMin()+""),c);
 		}
+		JPanel nic = new JPanel();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		c.gridwidth = 5;
+		c.gridx = 1;
+		c.gridy = 13;
+		panel.add(nic, c);
 		//panel.setBorder(BorderFactory.createLineBorder(Color.black));
 		return panel;
 	}
 	private JPanel vytvorPanelTop5Brankari(){
 		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weightx = 1;
+		c.gridwidth = 4;
+		c.gridx = 0;
+		c.gridy = 0;
 		nadpis.add(new JLabel("TOP 5 Brankari"));
-		panel.add(nadpis);
-		panel.setLayout(new GridLayout(7,1));
+		panel.add(nadpis,c);
+		c.insets = new Insets(5,5,2,2);
+		c.gridwidth = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weightx = 0.7;
+		c.gridx = 0;
+		c.gridy = 1;
+		panel.add(new JLabel("Meno"),c);
+		c.weightx = 0.1;
+		c.gridx = 1;
+		panel.add(new JLabel("IG"),c);
+		c.gridx = 2;
+		panel.add(new JLabel("OM"),c);
+		c.gridx = 3;
+		panel.add(new JLabel("P"),c);
+		
 		List<Hrac> hraci = liga.getZoznamBrankarov();
 		Collections.sort(hraci,Collections.reverseOrder(new HracByStats(liga))); 
-		panel.add(vytvorPanelNadpisTop5Brankari());
-		for(int i=0;i<Math.min(10, hraci.size());i++){
-			
-			panel.add(vytvorPanelBrankara(hraci.get(i)));
-			
+		
+		for(int i=0;i<Math.min(5, hraci.size());i++){
+			Hrac hrac = hraci.get(i);
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.anchor = GridBagConstraints.NORTH;
+			c.weightx = 0.7;
+			c.gridx = 0;			
+			c.gridy = i+2;
+			panel.add(new JLabel(hrac.getMeno()+""),c);
+			c.weightx = 0.1;
+			c.gridx = 1;
+			panel.add(new JLabel(hrac.getInkasGoly()+""),c);
+			c.gridx = 2;
+			panel.add(new JLabel(hrac.getOdchytMin()+""),c);
+			c.gridx = 3;
+			panel.add(new JLabel(hrac.getPriemer(liga.getDlzkaZapasu())+""),c);
 		}
-		//panel.setBorder(BorderFactory.createLineBorder(Color.black));
+		JPanel nic = new JPanel();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		c.gridwidth = 4;
+		c.gridx = 1;
+		c.gridy = 8;
+		panel.add(nic, c);
 		return panel;
 	}
 	private JPanel vytvorLavyPanel(){
@@ -422,6 +520,9 @@ public class HlavneOkno extends JFrame{
 		if(obsahHlavnejCasti==1){
 			panel=vytvorPanelSpravaHAT();
 		}		
+		if(obsahHlavnejCasti==2){
+			panel=vytvorPanelSpravaHAT();
+		}
 		return panel;		
 	}
 	private JPanel vytvorPanelSpravaHAT(){
@@ -652,72 +753,6 @@ public class HlavneOkno extends JFrame{
 		c.gridy = liga.getZoznamTeamov().size()+cisloRiadku;
 		panel.add(nic, c);
 		return panel;
-	}
-	private JPanel vytvorPanelHraca(Hrac hrac){
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,2));
-		
-		JPanel lavaCast = new JPanel();
-		lavaCast.add(new JLabel(hrac.getMeno()));
-		panel.add(lavaCast);		
-		
-		JPanel pravaCast = new JPanel();
-		pravaCast.setLayout(new FlowLayout());
-		pravaCast.add(new JLabel(hrac.getGoly()+"  "));
-		pravaCast.add(new JLabel(hrac.getAsist()+"  "));
-		pravaCast.add(new JLabel(hrac.getOdohratychZapasov()+"  "));
-		pravaCast.add(new JLabel(hrac.getTrestMin()+"  "));
-		panel.add(pravaCast);		
-		return panel;		
-	}
-	private JPanel vytvorPanelNadpisTop10Hraci(){
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,2));
-		
-		JPanel lavaCast = new JPanel();
-		lavaCast.add(new JLabel("Meno"));
-		panel.add(lavaCast);		
-		
-		JPanel pravaCast = new JPanel();
-		pravaCast.setLayout(new FlowLayout());
-		pravaCast.add(new JLabel("G  "));
-		pravaCast.add(new JLabel("A  "));
-		pravaCast.add(new JLabel("OZ "));
-		pravaCast.add(new JLabel("TM "));
-		panel.add(pravaCast);		
-		return panel;		
-	}
-	private JPanel vytvorPanelNadpisTop5Brankari(){
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,2));
-		
-		JPanel lavaCast = new JPanel();
-		lavaCast.add(new JLabel("Meno"));
-		panel.add(lavaCast);		
-		
-		JPanel pravaCast = new JPanel();
-		pravaCast.setLayout(new FlowLayout());
-		pravaCast.add(new JLabel("IG  "));
-		pravaCast.add(new JLabel("OM  "));
-		pravaCast.add(new JLabel("P "));
-		panel.add(pravaCast);		
-		return panel;		
-	}
-	private JPanel vytvorPanelBrankara(Hrac hrac){
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1,2));
-		
-		JPanel lavaCast = new JPanel();
-		lavaCast.add(new JLabel(hrac.getMeno()));
-		panel.add(lavaCast);		
-		
-		JPanel pravaCast = new JPanel();
-		pravaCast.setLayout(new FlowLayout());
-		pravaCast.add(new JLabel(hrac.getInkasGoly()+"  "));
-		pravaCast.add(new JLabel(hrac.getOdchytMin()+"  "));
-		pravaCast.add(new JLabel(hrac.getPriemer(liga.getDlzkaZapasu())+"  "));
-		panel.add(pravaCast);		
-		return panel;		
 	}
 	private void reset(){
 		//this.setVisible(false);
