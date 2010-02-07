@@ -19,7 +19,7 @@ public class Liga {
 	public Liga() {
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
-	}
+	}	
 	public void generateZapasy(int pocetTeamov, int pocetOdviet) {
 		if(pocetTeamov%2==1) {
 			pocetTeamov++; //ak je pocet teamov neparny, zvys sa o jedna aby bol parny 
@@ -175,5 +175,12 @@ public class Liga {
 		} 
 		return vysledok;
 	}
-	
+	public int getVolneIdHraca(){
+		int max=-1;
+		for(int i=0;i<zoznamTeamov.size();i++){
+			if(zoznamTeamov.get(i).getIdTeamu()>max) max = zoznamTeamov.get(i).getIdTeamu();
+		}
+		return max+1;
+		
+	}
 }
