@@ -3,20 +3,16 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
-import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -30,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.WindowConstants;
-import javax.swing.border.Border;
 
 import porovnavanie.HracByStats;
 
@@ -752,14 +747,28 @@ public class HlavneOkno extends JFrame{
 			c.gridy = liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().size();
 			panel.add(pridaj, c);		
 			
+			JButton spat = new JButton("Zoznam teamov");
+			spat.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					obsahHlavnejCasti=1;
+					reset();
+				}
+			});
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.weightx = 0.1;
+			c.gridx = 3;
+			c.gridy = liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().size()+1;
+			panel.add(spat, c);
+			
 			JPanel nic = new JPanel();
 			c.fill = GridBagConstraints.BOTH;
 			c.weightx = 1.0;
 			c.weighty = 1.0;
 			c.gridwidth = 4;
 			c.gridx = 1;
-			c.gridy = liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().size()+1;
+			c.gridy = liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().size()+2;
 			panel.add(nic, c);
+			
 		
 		return panel;
 	}
