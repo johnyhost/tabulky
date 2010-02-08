@@ -21,10 +21,16 @@ public class Liga {
 		this.zoznamZapasov=new ArrayList<Zapas>();
 	}	
 	public void generateZapasy(int pocetTeamov, int pocetOdviet) {
+		// pocet odviet udava kolko krat sa spolu teamy este stretnu po prvej serii
+		boolean neparnyPocetTeamov;
+		File f;
 		if(pocetTeamov%2==1) {
-			pocetTeamov++; //ak je pocet teamov neparny, zvys sa o jedna aby bol parny 
+			f = new File("berger//"+(pocetTeamov+1)+".txt");
+			neparnyPocetTeamov=true; //pamataj si ze je neparny pocet teamov
+		} else {
+			f = new File("berger//"+pocetTeamov+".txt");
+			neparnyPocetTeamov=false; // nie je neparny, je parny
 		}
-		File f = new File("berger//"+pocetTeamov+".txt");
 		try {
 			Scanner scFile = new Scanner(f);
 			int i = 1; //pocitadlo poctu riadkov a id zapasov
@@ -33,24 +39,36 @@ public class Liga {
 				Scanner scRiadok = new Scanner(riadok);
 				int id1=scRiadok.nextInt();
 				int id2=scRiadok.nextInt();
-				zoznamZapasov.add(new Zapas(i,id1,id2));
-				i++;
+				if(neparnyPocetTeamov) { 
+					if(id1<=pocetTeamov&&id2<=pocetTeamov) {
+						// v pripade ze je neparny pocet teamov, tak je nutne skontrolovat
+						// ci nie je jeden z tymov "falosny" teda ten posledny, umelo pridany
+						zoznamZapasov.add(new Zapas(i,id1,id2));
+						i++; 
+						}
+				} else {
+					//ak je parny pocet teamov, nestaram sa a pridavam
+					zoznamZapasov.add(new Zapas(i,id1,id2));
+					i++;
+				}
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("error: berger's file not found");
 			e.printStackTrace();
 		}
-		//v pripade ze sa hra liga systemom doma-vonku prip. viackrat, raz uz zbehlo generovanie zapasov
-		int pocetZapasov = zoznamZapasov.size();
+		// generovanie dalsich serii zapasov (odviet)
+		int pocetZapasov = zoznamZapasov.size(); // zapamatam si, kolko zapasov je v zakladnej serii zapasov
 		for (int i = 1; i <= pocetOdviet; i++) {
 			for (int j = 0; j < pocetZapasov; j++) {
 				if(i%2==1) {
+					// toto je rozlisenie, na to aby sa pri odvetach striedali teamy, v prvej serii 2-4, v druhej 4-2, v tretej 2-4 atd
 					zoznamZapasov.add(new Zapas(i*pocetZapasov+j+1,zoznamZapasov.get(j).getIdTeamu2(),zoznamZapasov.get(j).getIdTeamu1()));
 				} else {
 					zoznamZapasov.add(new Zapas(i*pocetZapasov+j+1,zoznamZapasov.get(j).getIdTeamu1(),zoznamZapasov.get(j).getIdTeamu2()));
 				}
 			}
 		}
+		//vypis pre kontrolu
 		for (Zapas z : zoznamZapasov) {
 			System.out.println("Zapas s id "+z.getIdZapasu()+" pridany: "+z.getIdTeamu1()+" vs. "+z.getIdTeamu2());
 		}
