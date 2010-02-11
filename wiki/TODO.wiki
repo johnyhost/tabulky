@@ -9,8 +9,10 @@
   * export do html - tabulka, statistiky, zoznam zapasov s vysledkami
   * komparatory pre zoradovanie hracov(dla bodov), brankarov(dla priemeru), teamov(klasicky - bodov(resp. skore))
   * export do sql
+  * gui editacia teamov a hracov v nich
+
 
 === TODO ===
 
-  * gui (johny) 
-  * statistiky - hraci (zoradovanie podla bodov, golov, asistencii, trestnych minut), brankari(zoradovanie podla poctu odchytanych minut, priemeru inkasovanych golov a celkoveho poctu inkasovanych golov...)
+  * gui editacia zapasov 
+  * ?statistiky - hraci (zoradovanie podla bodov, golov, asistencii, trestnych minut), brankari(zoradovanie podla poctu odchytanych minut, priemeru inkasovanych golov a celkoveho poctu inkasovanych golov...)
