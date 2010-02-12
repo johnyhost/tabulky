@@ -15,6 +15,7 @@ import java.util.Collections;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,18 +26,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import porovnavanie.BrankarByStats;
 import porovnavanie.HracByStats;
+import porovnavanie.TeamByStats;
 
 import zaklad.*;
 
 public class HlavneOkno extends JFrame{
 	Liga liga;
-	File aktualnyAdresar = new File (".");
+	String aktualnyAdresar;
 	String aktualnyNazovSuboru;
 	int obsahHlavnejCasti;
 	int idUpravovanehoTeamu;
+	int idUpravovanehoZapasu;
+	int cisloKola;
 	public HlavneOkno(int x, int y) {
 		setLayout(new BorderLayout());
 		setBounds(0, 0, x, y);
@@ -44,6 +50,11 @@ public class HlavneOkno extends JFrame{
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setTitle("Tabulky");
 		obsahHlavnejCasti=0;
+		try {
+			aktualnyAdresar=new File (".").getCanonicalPath();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		init();
 		reset();
 		
@@ -64,10 +75,17 @@ public class HlavneOkno extends JFrame{
 		JMenuItem polozkaNovaLiga = new JMenuItem("Nova Liga");
 		polozkaNovaLiga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				liga = new Liga();
-				reset();
-		    	}							
-			}
+				String response = JOptionPane.showInputDialog(null,
+						  "Zadajte nazov ligy",
+						  "Nazov ligy",
+						  JOptionPane.QUESTION_MESSAGE); 
+				if(response!=null && response.equals("")==false){
+					liga = new Liga();
+					liga.setNazovLigy(response);
+					reset();
+				}
+		    }							
+		}
 		);
 		menuSubor.add(polozkaNovaLiga);
 		
@@ -76,15 +94,16 @@ public class HlavneOkno extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
 				try {
-					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
+					fc = new JFileChooser(aktualnyAdresar);
 					fc.addChoosableFileFilter(new XMLFilter());
 					fc.setAcceptAllFileFilterUsed(false);
 					int returnVal = fc.showOpenDialog(null);
-
+					
 			        if (returnVal == JFileChooser.APPROVE_OPTION) {
 			            File file = fc.getSelectedFile();
 			            Data data = new Data();
 			            liga = data.loadXML(file.getAbsolutePath());
+			            aktualnyAdresar = file.getCanonicalPath().replaceFirst(file.getName(), "");
 			            aktualnyNazovSuboru=file.getName();
 			            reset();
 			        }
@@ -103,29 +122,32 @@ public class HlavneOkno extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(aktualnyNazovSuboru==null){
 					JFileChooser fc;
-					try {
-						fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
-						fc.addChoosableFileFilter(new XMLFilter());
-						fc.setAcceptAllFileFilterUsed(false);
-						int returnVal = fc.showSaveDialog(null);
+					fc = new JFileChooser(aktualnyAdresar);
+					fc.addChoosableFileFilter(new XMLFilter());
+					fc.setAcceptAllFileFilterUsed(false);
+					int returnVal = fc.showSaveDialog(null);
 
-				        if (returnVal == JFileChooser.APPROVE_OPTION) {
-				            File file = fc.getSelectedFile();
-				            Data data = new Data(liga);
-				            if(file.getAbsolutePath().toLowerCase().contains(".xml")){
-				            	data.saveXML(file.getAbsolutePath());
-				            	aktualnyNazovSuboru=file.getName();
-				            } else {
-				            	data.saveXML(file.getAbsolutePath()+".xml");
-				            	aktualnyNazovSuboru=file.getName()+".xml";
-				            }
-				           
-				            
-				        }
-					} catch (IOException e1) {e1.printStackTrace();}
+					if (returnVal == JFileChooser.APPROVE_OPTION) {
+					    File file = fc.getSelectedFile();
+					    Data data = new Data(liga);
+					    try {
+							aktualnyAdresar = file.getCanonicalPath().replaceFirst(file.getName(), "");
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					    if(file.getAbsolutePath().toLowerCase().contains(".xml")){
+					    	data.saveXML(file.getAbsolutePath());
+					    	aktualnyNazovSuboru=file.getName();
+					    } else {
+					    	data.saveXML(file.getAbsolutePath()+".xml");
+					    	aktualnyNazovSuboru=file.getName()+".xml";
+					    }
+					   
+					    
+					}
 				} else {
 				Data data = new Data(liga);
-			    data.saveXML(aktualnyNazovSuboru);
+			    data.saveXML(aktualnyAdresar+"\\"+aktualnyNazovSuboru);
 				}
 			}		    								
 			}
@@ -136,26 +158,29 @@ public class HlavneOkno extends JFrame{
 		polozkaUlozLiguAko.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
-				try {
-					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
-					fc.addChoosableFileFilter(new XMLFilter());
-					fc.setAcceptAllFileFilterUsed(false);
-					int returnVal = fc.showSaveDialog(null);
+				fc = new JFileChooser(aktualnyAdresar);
+				fc.addChoosableFileFilter(new XMLFilter());
+				fc.setAcceptAllFileFilterUsed(false);
+				int returnVal = fc.showSaveDialog(null);
 
-			        if (returnVal == JFileChooser.APPROVE_OPTION) {
-			            File file = fc.getSelectedFile();
-			            Data data = new Data(liga);
-			            if(file.getAbsolutePath().toLowerCase().contains(".xml")){
-			            	data.saveXML(file.getAbsolutePath());
-			            	aktualnyNazovSuboru=file.getName();
-			            } else {
-			            	data.saveXML(file.getAbsolutePath()+".xml");
-			            	aktualnyNazovSuboru=file.getName()+".xml";
-			            }
-			           
-			            
-			        }
-				} catch (IOException e1) {e1.printStackTrace();}
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+				    File file = fc.getSelectedFile();
+				    Data data = new Data(liga);
+				    try {
+						aktualnyAdresar = file.getCanonicalPath().replaceFirst(file.getName(), "");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				    if(file.getAbsolutePath().toLowerCase().contains(".xml")){
+				    	data.saveXML(file.getAbsolutePath());
+				    	aktualnyNazovSuboru=file.getName();
+				    } else {
+				    	data.saveXML(file.getAbsolutePath()+".xml");
+				    	aktualnyNazovSuboru=file.getName()+".xml";
+				    }
+				   
+				    
+				}
 				
 		        } 
 		    								
@@ -171,23 +196,26 @@ public class HlavneOkno extends JFrame{
 		polozkaExportHtmlTeamy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
-				try {
-					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
-					
-					int returnVal = fc.showSaveDialog(null);
+				fc = new JFileChooser(aktualnyAdresar);
+				
+				int returnVal = fc.showSaveDialog(null);
 
-			        if (returnVal == JFileChooser.APPROVE_OPTION) {
-			            File file = fc.getSelectedFile();
-			            Data data = new Data(liga);
-			            if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
-			            	data.exportTeamyHTML(file.getAbsolutePath());
-			            } else {
-			            	data.exportTeamyHTML(file.getAbsolutePath()+".html");
-			            }
-			           
-			            
-			        }
-				} catch (IOException e1) {e1.printStackTrace();}
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+				    File file = fc.getSelectedFile();
+				    Data data = new Data(liga);
+				    try {
+						aktualnyAdresar = file.getCanonicalPath().replaceFirst(file.getName(), "");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				    if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
+				    	data.exportTeamyHTML(file.getAbsolutePath());
+				    } else {
+				    	data.exportTeamyHTML(file.getAbsolutePath()+".html");
+				    }
+				   
+				    
+				}
 				
 		        } 
 		    								
@@ -199,22 +227,25 @@ public class HlavneOkno extends JFrame{
 		polozkaExportHtmlHraci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
-				try {
-					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
-					int returnVal = fc.showSaveDialog(null);
+				fc = new JFileChooser(aktualnyAdresar);
+				int returnVal = fc.showSaveDialog(null);
 
-			        if (returnVal == JFileChooser.APPROVE_OPTION) {
-			            File file = fc.getSelectedFile();
-			            Data data = new Data(liga);
-			            if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
-			            	data.exportHraciHTML(file.getAbsolutePath());
-			            } else {
-			            	data.exportHraciHTML(file.getAbsolutePath()+".html");
-			            }
-			           
-			            
-			        }
-				} catch (IOException e1) {e1.printStackTrace();}
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+				    File file = fc.getSelectedFile();
+				    Data data = new Data(liga);
+				    try {
+						aktualnyAdresar = file.getCanonicalPath().replaceFirst(file.getName(), "");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				    if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
+				    	data.exportHraciHTML(file.getAbsolutePath());
+				    } else {
+				    	data.exportHraciHTML(file.getAbsolutePath()+".html");
+				    }
+				   
+				    
+				}
 				
 		        } 
 		    								
@@ -226,22 +257,25 @@ public class HlavneOkno extends JFrame{
 		polozkaExportHtmlZapasy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
-				try {
-					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
-					int returnVal = fc.showSaveDialog(null);
+				fc = new JFileChooser(aktualnyAdresar);
+				int returnVal = fc.showSaveDialog(null);
 
-			        if (returnVal == JFileChooser.APPROVE_OPTION) {
-			            File file = fc.getSelectedFile();
-			            Data data = new Data(liga);
-			            if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
-			            	data.exportZapasyHTML(file.getAbsolutePath());
-			            } else {
-			            	data.exportZapasyHTML(file.getAbsolutePath()+".html");
-			            }
-			           
-			            
-			        }
-				} catch (IOException e1) {e1.printStackTrace();}
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+				    File file = fc.getSelectedFile();
+				    Data data = new Data(liga);
+				    try {
+						aktualnyAdresar = file.getCanonicalPath().replaceFirst(file.getName(), "");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				    if(file.getAbsolutePath().toLowerCase().contains(".htm")){   
+				    	data.exportZapasyHTML(file.getAbsolutePath());
+				    } else {
+				    	data.exportZapasyHTML(file.getAbsolutePath()+".html");
+				    }
+				   
+				    
+				}
 				
 		        } 
 		    								
@@ -253,22 +287,24 @@ public class HlavneOkno extends JFrame{
 		polozkaExportSQL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
-				try {
-					fc = new JFileChooser(aktualnyAdresar.getCanonicalPath()+"\\Data");
-					int returnVal = fc.showSaveDialog(null);
+				fc = new JFileChooser(aktualnyAdresar);
+				int returnVal = fc.showSaveDialog(null);
 
-			        if (returnVal == JFileChooser.APPROVE_OPTION) {
-			            File file = fc.getSelectedFile();
-			            Data data = new Data(liga);			      
-			            
-			            if(file.getAbsolutePath().toLowerCase().contains(".sql")){   
-			            	data.exportSQL(file.getAbsolutePath());
-			            } else {
-			            	data.exportSQL(file.getAbsolutePath()+".sql");
-			            }
-			            
-			        }
-				} catch (IOException e1) {e1.printStackTrace();}
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+				    File file = fc.getSelectedFile();
+				    Data data = new Data(liga);			      
+				    try {
+						aktualnyAdresar = file.getCanonicalPath().replaceFirst(file.getName(), "");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				    if(file.getAbsolutePath().toLowerCase().contains(".sql")){   
+				    	data.exportSQL(file.getAbsolutePath());
+				    } else {
+				    	data.exportSQL(file.getAbsolutePath()+".sql");
+				    }
+				    
+				}
 				
 		        } 
 		    								
@@ -295,6 +331,16 @@ public class HlavneOkno extends JFrame{
 		
 		JMenu menuNastroje = new JMenu("Nastroje");
 		
+		JMenuItem polozkaZobrazPrehladTeamov = new JMenuItem("Zobraz prehlad teamov");
+		polozkaZobrazPrehladTeamov.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				obsahHlavnejCasti=0;		
+				reset();
+		    }							
+		}
+		);
+		menuNastroje.add(polozkaZobrazPrehladTeamov);
+		
 		JMenuItem polozkaSpravaHracovATeamov = new JMenuItem("Sprava hracov a teamov");
 		polozkaSpravaHracovATeamov.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -316,6 +362,22 @@ public class HlavneOkno extends JFrame{
 		);
 		
 		menuNastroje.add(polozkaSpravaZapasov);
+		
+		JMenuItem polozkaGenerovatZapasy = new JMenuItem("Generuj zapasy");
+		polozkaGenerovatZapasy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String response = JOptionPane.showInputDialog(null,
+						  "Zadajte pocet odviet",
+						  "Pocet odviet",
+						  JOptionPane.QUESTION_MESSAGE); 
+				if(response!=null && response.equals("")==false){
+					liga.generateZapasy(liga.getZoznamTeamov().size(), Integer.parseInt(response));
+					reset();
+				}
+		    }							
+		}
+		);
+		menuNastroje.add(polozkaGenerovatZapasy);
 		
 		horneMenu.add(menuNastroje);
 		
@@ -480,7 +542,7 @@ public class HlavneOkno extends JFrame{
 		panel.add(new JLabel("P"),c);
 		
 		List<Hrac> hraci = liga.getZoznamBrankarov();
-		Collections.sort(hraci,Collections.reverseOrder(new HracByStats(liga))); 
+		Collections.sort(hraci,new BrankarByStats(liga)); 
 		
 		for(int i=0;i<Math.min(5, hraci.size());i++){
 			Hrac hrac = hraci.get(i);
@@ -510,19 +572,104 @@ public class HlavneOkno extends JFrame{
 	}
 	private JPanel vytvorLavyPanel(){
 		JPanel panel = new JPanel();
+		// hlavna obrazovka, ta co sa zobrazi po spusteni
 		if(obsahHlavnejCasti==0){
-			
+			panel=vytvorPanelPrehladTeamov();
 		}
+		// obrazovka so zoznamom teamov a tlacidlami na ich upravu, pridavanie
 		if(obsahHlavnejCasti==1){
 			panel=vytvorPanelSpravaTeamov();
 		}	
+		// obrazovka so spravou hracov teamu
 		if(obsahHlavnejCasti==11){
 			panel=vytvorPanelSpravaHracov();
 		}
+		// obrazovka so spravou zapasov
 		if(obsahHlavnejCasti==2){
-			//panel=vytvorPanelSpravaHAT();
+			panel=vytvorPanelSpravaZapasov();
+		}
+		if(obsahHlavnejCasti==22){
+			panel=vytvorPanelUpravaZapasu();
 		}
 		return panel;		
+	}		
+	private JPanel vytvorPanelPrehladTeamov() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		JPanel nadpis = new JPanel();
+		nadpis.add(new JLabel("Prehlad Teamov"));
+		panel.add(nadpis);
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;	
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.gridwidth = 1;
+		c.weighty = 0;
+		c.weightx = 1.0;
+		c.gridx = 0;
+		c.gridy = 0;	
+		panel.add(nadpis,c);
+		JPanel obsah = vytvorPanelObsahPrehladTeamov();
+		c.anchor = GridBagConstraints.PAGE_END;
+		c.gridwidth = 1;
+		c.weighty = 1;
+		c.weightx = 1.0;
+		c.gridx = 0;
+		c.gridy = 1;
+		//obsah.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel.add(obsah,c);
+		return panel;	
+	}
+	private JPanel vytvorPanelObsahPrehladTeamov() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5,5,2,2);
+		c.gridwidth = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weightx = 0.6;
+		c.gridx = 0;
+		c.gridy = 0;
+		panel.add(new JLabel("Nazov"),c);
+		c.weightx = 0.1;
+		c.gridx = 1;
+		panel.add(new JLabel("Vyhry"),c);
+		c.gridx = 2;
+		panel.add(new JLabel("Prehry"),c);
+		c.gridx = 3;
+		panel.add(new JLabel("Remizy"),c);
+		c.gridx = 4;
+		panel.add(new JLabel("Body"),c);
+		List<Team> zoradenyZoznamTeamov = liga.getZoznamTeamov();
+		Collections.sort(zoradenyZoznamTeamov,Collections.reverseOrder(new TeamByStats(liga)));
+		for(int i=0;i<zoradenyZoznamTeamov.size();i++){
+			c.gridx = 0;
+			c.gridy = i+1;
+			c.weightx = 0.1;
+			panel.add(new JLabel(zoradenyZoznamTeamov.get(i).getNazov()),c);
+			c.weightx = 0.1;
+			c.gridx = 1;
+			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetVyhier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
+			c.gridx = 2;
+			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetPrehier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
+			c.gridx = 3;
+			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetRemiz(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
+			c.gridx = 4;
+			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getBody(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
+		}
+		
+		
+		
+		JPanel nic = new JPanel();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		c.gridwidth = 6;
+		c.gridx = 0;
+		c.gridy = liga.getZoznamTeamov().size()+2;
+		panel.add(nic, c);
+		
+		return panel;
 	}
 	private JPanel vytvorPanelSpravaTeamov(){
 		JPanel panel = new JPanel();
@@ -667,9 +814,15 @@ public class HlavneOkno extends JFrame{
 		c.gridy = liga.getZoznamTeamov().size();
 		panel.add(pridaj, c);
 		
-		
-		
 		JPanel nic = new JPanel();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.1;
+		c.gridx = 3;
+		c.gridy = liga.getZoznamTeamov().size();
+		panel.add(nic, c); 
+		
+		
+		nic = new JPanel();
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
 		c.weighty = 1.0;
@@ -745,7 +898,14 @@ public class HlavneOkno extends JFrame{
 			c.weightx = 0.1;
 			c.gridx = 1;
 			c.gridy = liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().size();
-			panel.add(pridaj, c);		
+			panel.add(pridaj, c);	
+			
+			JPanel nic = new JPanel();
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.weightx = 0.1;
+			c.gridx = 3;
+			c.gridy = liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().size();
+			panel.add(nic, c); 
 			
 			JButton spat = new JButton("Zoznam teamov");
 			spat.addActionListener(new ActionListener() {
@@ -760,7 +920,7 @@ public class HlavneOkno extends JFrame{
 			c.gridy = liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().size()+1;
 			panel.add(spat, c);
 			
-			JPanel nic = new JPanel();
+			nic = new JPanel();
 			c.fill = GridBagConstraints.BOTH;
 			c.weightx = 1.0;
 			c.weighty = 1.0;
@@ -771,6 +931,402 @@ public class HlavneOkno extends JFrame{
 			
 		
 		return panel;
+	}
+	private JPanel vytvorPanelSpravaZapasov() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		JPanel nadpis = new JPanel();
+		nadpis.add(new JLabel("Sprava zapasov"));
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;	
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.gridwidth = 1;
+		c.weighty = 0;
+		c.weightx = 1.0;
+		c.gridx = 0;
+		c.gridy = 0;	
+		panel.add(nadpis,c);
+		JPanel obsah = vytvorPanelObsahSpravaZapasov();
+		c.anchor = GridBagConstraints.PAGE_END;
+		c.gridwidth = 1;
+		c.weighty = 1;
+		c.weightx = 1.0;
+		c.gridx = 0;
+		c.gridy = 1;
+		//obsah.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel.add(obsah,c);
+		return panel;
+	}
+	private JPanel vytvorPanelObsahSpravaZapasov() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		JLabel cislo = new JLabel(cisloKola+1+". kolo");
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5,5,2,2);	
+		c.gridx = 0;
+		c.gridy = 0;
+		panel.add(cislo,c);
+		JButton back = new JButton("Predchadzajuce kolo");
+		back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int pT=liga.getZoznamTeamov().size();
+				if(cisloKola==0) cisloKola=faktorial(pT)/(faktorial(2)*faktorial(pT-2))/(pT/2)-1; else
+				cisloKola--;
+				reset();
+			}
+		});
+		c.gridx = 1;
+		panel.add(back,c);
+		JButton next = new JButton("Nasledujuce kolo");
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int pT=liga.getZoznamTeamov().size();
+				if(cisloKola==faktorial(pT)/(faktorial(2)*faktorial(pT-2))/(pT/2)-1) cisloKola=0; else
+				cisloKola++;
+				reset();
+			}
+		});
+		c.gridx = 2;
+		panel.add(next,c);
+		for(int i=0;i<liga.getZoznamTeamov().size()/2;i++){
+			Zapas zapas = liga.getZoznamZapasov().get(cisloKola*(liga.getZoznamTeamov().size()/2)+i);
+			JLabel nazov = new JLabel(liga.getTeam(zapas.getIdTeamu1()).getNazov()+" vs "+liga.getTeam(zapas.getIdTeamu2()).getNazov());
+			c.gridx = 0;
+			c.gridy=i+1;
+			panel.add(nazov,c);
+			JButton upravit = new JButton("Upravit zapas");
+			final int id=zapas.getIdZapasu();
+			upravit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					obsahHlavnejCasti=22;
+					idUpravovanehoZapasu=id;
+					reset();
+				}
+			});
+			c.gridx=1;
+			panel.add(upravit,c);
+			if(zapas.getVysledok()==-1){
+				JLabel info = new JLabel("Zapas este neprebehol");
+				c.gridx=2;
+				panel.add(info,c);
+			} else {
+				JLabel info = new JLabel(liga.getTeam(zapas.getIdTeamu1()).getSkore(zapas.getIdZapasu())+":"+liga.getTeam(zapas.getIdTeamu2()).getSkore(zapas.getIdZapasu()));
+				c.gridx=2;
+				panel.add(info,c);
+			} 
+			
+		}
+		
+		JPanel nic = new JPanel();
+		c.fill = GridBagConstraints.BOTH;
+		c.weighty = 1.0;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = liga.getZoznamTeamov().size()/2+2;
+		panel.add(nic, c);
+		
+		return panel;
+	}
+	private JPanel vytvorPanelUpravaZapasu() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		JPanel nadpis = new JPanel();
+		nadpis.add(new JLabel("Uprava zapasu"));
+		panel.add(nadpis);
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;	
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.gridwidth = 1;
+		c.weighty = 0;
+		c.weightx = 1.0;
+		c.gridx = 0;
+		c.gridy = 0;	
+		panel.add(nadpis,c);
+		JPanel obsah = vytvorPanelObsahUpravaZapasu();
+		c.anchor = GridBagConstraints.PAGE_END;
+		c.gridwidth = 1;
+		c.weighty = 1;
+		c.weightx = 1.0;
+		c.gridx = 0;
+		c.gridy = 1;
+		//obsah.setBorder(BorderFactory.createLineBorder(Color.black));
+		panel.add(obsah,c);
+		return panel;
+	}
+	private JPanel vytvorPanelObsahUpravaZapasu() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		JLabel nadpis = new JLabel(liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu1()).getNazov()+ " vs "+liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu2()).getNazov());
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5,5,2,2);	
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth=3;
+		panel.add(nadpis,c);
+		
+		
+		final JPanel lavyTeam = new JPanel();
+		lavyTeam.setLayout(new GridBagLayout());
+		GridBagConstraints d = new GridBagConstraints();
+		d.insets = new Insets(5,5,2,2);	
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.anchor = GridBagConstraints.NORTH;
+		d.weightx = 0.4;
+		d.gridx = 0;
+		d.gridy = 0;
+		lavyTeam.add(new JLabel("Meno"),d);
+		d.weightx = 0.1;
+		d.gridx = 1;
+		lavyTeam.add(new JLabel("Hral"),d);
+		d.gridx = 2;
+		lavyTeam.add(new JLabel("G"),d);
+		d.gridx = 3;
+		lavyTeam.add(new JLabel("A"),d);
+		d.gridx = 4;
+		lavyTeam.add(new JLabel("TM"),d);
+		d.gridx = 5;
+		lavyTeam.add(new JLabel("IG"),d);
+		d.gridx = 6;
+		lavyTeam.add(new JLabel("OM"),d);
+		for (int i = 0; i < liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu1()).getZoznamHracov().size(); i++) {
+			d.gridy=i+1;
+			d.gridx=0;
+			lavyTeam.add(new JLabel(liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu1()).getZoznamHracov().get(i).getMeno()),d);
+			d.gridx=1;
+			Hrac hrac = liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu1()).getZoznamHracov().get(i);
+			JCheckBox hral = new JCheckBox();
+			if(hrac.existujeZapas(idUpravovanehoZapasu)) hral.setSelected(hrac.getHralZapas(idUpravovanehoZapasu));
+			lavyTeam.add(hral,d);
+			
+			for(int j = 2;j<7;j++){
+				d.gridx=j;
+				JTextField policko = new JTextField("0");
+				if(hrac.existujeZapas(idUpravovanehoZapasu)){
+					if(j==2)policko.setText(""+hrac.getGoly(idUpravovanehoZapasu));
+					if(j==3)policko.setText(""+hrac.getAsist(idUpravovanehoZapasu));
+					if(j==4)policko.setText(""+hrac.getTrestMin(idUpravovanehoZapasu));
+					if(j==5)policko.setText(""+hrac.getInkasGoly(idUpravovanehoZapasu));
+					if(j==6)policko.setText(""+hrac.getOdchytMin(idUpravovanehoZapasu));
+				}
+				
+				policko.setColumns(2);
+				lavyTeam.add(policko,d);
+			}
+			
+			
+		}
+		c.gridwidth=1;
+		c.gridx = 0;
+		c.gridy = 1;
+		panel.add(lavyTeam,c);
+		
+		final JPanel pravyTeam = new JPanel();
+		pravyTeam.setLayout(new GridBagLayout());
+		GridBagConstraints e = new GridBagConstraints();
+		e.insets = new Insets(5,5,2,2);	
+		e.fill = GridBagConstraints.HORIZONTAL;
+		e.anchor = GridBagConstraints.NORTH;
+		e.weightx = 0.4;
+		e.gridx = 0;
+		e.gridy = 0;
+		pravyTeam.add(new JLabel("Meno"),e);
+		e.weightx = 0.1;
+		e.gridx = 1;
+		pravyTeam.add(new JLabel("Hral"),e);
+		e.gridx = 2;
+		pravyTeam.add(new JLabel("G"),e);
+		e.gridx = 3;
+		pravyTeam.add(new JLabel("A"),e);
+		e.gridx = 4;
+		pravyTeam.add(new JLabel("TM"),e);
+		e.gridx = 5;
+		pravyTeam.add(new JLabel("IG"),e);
+		e.gridx = 6;
+		pravyTeam.add(new JLabel("OM"),e);
+		for (int i = 0; i < liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu2()).getZoznamHracov().size(); i++) {
+			e.gridy=i+1;
+			e.gridx=0;
+			pravyTeam.add(new JLabel(liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu2()).getZoznamHracov().get(i).getMeno()),e);
+			e.gridx=1;
+			Hrac hrac = liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu2()).getZoznamHracov().get(i);
+			JCheckBox hral = new JCheckBox();
+			if(hrac.existujeZapas(idUpravovanehoZapasu)) hral.setSelected(hrac.getHralZapas(idUpravovanehoZapasu));
+			pravyTeam.add(hral,e);
+			
+			for(int j = 2;j<7;j++){
+				e.gridx=j;
+				JTextField policko = new JTextField("0");
+				if(hrac.existujeZapas(idUpravovanehoZapasu)){
+					if(j==2)policko.setText(""+hrac.getGoly(idUpravovanehoZapasu));
+					if(j==3)policko.setText(""+hrac.getAsist(idUpravovanehoZapasu));
+					if(j==4)policko.setText(""+hrac.getTrestMin(idUpravovanehoZapasu));
+					if(j==5)policko.setText(""+hrac.getInkasGoly(idUpravovanehoZapasu));
+					if(j==6)policko.setText(""+hrac.getOdchytMin(idUpravovanehoZapasu));
+				}
+				
+				policko.setColumns(2);
+				pravyTeam.add(policko,e);
+			}
+			
+			
+		}
+		c.gridwidth=1;
+		c.gridx = 2;
+		c.gridy = 1;
+		panel.add(pravyTeam,c);
+		
+		JPanel tlacidla = new JPanel();
+		
+		JButton ulozit = new JButton("Ulozit");
+		ulozit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// kontrola ci su zadane data cisla
+				for(int i=7;i<lavyTeam.getComponentCount();i++){
+					if(i%7>1 ){ //ak component nie je ani Meno ani Hral, teda JLabel a JCheckbox
+						 JTextField pole =  (JTextField) lavyTeam.getComponent(i);
+						 for(int j=0;j<pole.getText().length();j++){
+							 if(Character.isDigit(pole.getText().charAt(j))==false){
+								 JOptionPane.showMessageDialog(null, "Zadane hodnoty nie su platne, data neboli ulozene");
+								 return;
+							 }
+						 }
+					}
+				}
+				for(int i=7;i<pravyTeam.getComponentCount();i++){
+					if(i%7>1){
+						 JTextField pole =  (JTextField) pravyTeam.getComponent(i);
+						 if(pole.getText().length()==0){
+							 pole.setText(""+0);
+						 }
+						 for(int j=0;j<pole.getText().length();j++){
+							 if(Character.isDigit(pole.getText().charAt(j))==false){
+								 JOptionPane.showMessageDialog(null, "Zadane hodnoty nie su platne, data neboli ulozene");
+								 return;
+							 }
+						 }
+					}
+				}
+				// overili sme ze vsetky data su kladne cisla (nie je v nich ani -)
+				boolean h=false;
+				int golySpolu=0;
+				int g=0;
+				int a=0;
+				int tm=0;
+				int ig=0;
+				int om=0;
+				
+				for(int i=7;i<lavyTeam.getComponentCount();i++){
+					if(i%7==1){
+						 JCheckBox hral =  (JCheckBox) lavyTeam.getComponent(i);
+						 h=hral.isSelected();
+					}
+					if(i%7==2){
+						 JTextField pole =  (JTextField) lavyTeam.getComponent(i);
+						 g=Integer.parseInt(pole.getText());
+						 golySpolu-=g;
+					}
+					if(i%7==3){
+						 JTextField pole =  (JTextField) lavyTeam.getComponent(i);
+						 a=Integer.parseInt(pole.getText());
+					}
+					if(i%7==4){
+						 JTextField pole =  (JTextField) lavyTeam.getComponent(i);
+						 tm=Integer.parseInt(pole.getText());
+					}
+					if(i%7==5){
+						 JTextField pole =  (JTextField) lavyTeam.getComponent(i);
+						 ig=Integer.parseInt(pole.getText());
+					}
+					if(i%7==6){
+						 JTextField pole =  (JTextField) lavyTeam.getComponent(i);
+						 om=Integer.parseInt(pole.getText());
+						 if(h==true){
+							 liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu1()).getZoznamHracov().get(i/7-1).addZapas(idUpravovanehoZapasu, g, a, tm, om, ig);
+						 } else {
+							 liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu1()).getZoznamHracov().get(i/7-1).nehralZapas(idUpravovanehoZapasu);
+						 }
+						 
+						
+					}
+				}
+				
+				for(int i=7;i<pravyTeam.getComponentCount();i++){
+					if(i%7==1){
+						 JCheckBox hral =  (JCheckBox) pravyTeam.getComponent(i);
+						 h=hral.isSelected();
+					}
+					if(i%7==2){
+						 JTextField pole =  (JTextField) pravyTeam.getComponent(i);
+						 g=Integer.parseInt(pole.getText());
+						 golySpolu+=g;
+					}
+					if(i%7==3){
+						 JTextField pole =  (JTextField) pravyTeam.getComponent(i);
+						 a=Integer.parseInt(pole.getText());
+					}
+					if(i%7==4){
+						 JTextField pole =  (JTextField) pravyTeam.getComponent(i);
+						 tm=Integer.parseInt(pole.getText());
+					}
+					if(i%7==5){
+						 JTextField pole =  (JTextField) pravyTeam.getComponent(i);
+						 ig=Integer.parseInt(pole.getText());
+					}
+					if(i%7==6){
+						 JTextField pole =  (JTextField) pravyTeam.getComponent(i);
+						 om=Integer.parseInt(pole.getText());
+						 if(h==true){
+							 liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu2()).getZoznamHracov().get(i/7-1).addZapas(idUpravovanehoZapasu, g, a, tm, om, ig);
+						 } else {
+							 liga.getTeam(liga.getZapas(idUpravovanehoZapasu).getIdTeamu2()).getZoznamHracov().get(i/7-1).nehralZapas(idUpravovanehoZapasu);
+						 }
+						 
+						
+					}
+				}
+				if(golySpolu<0){ //prvy team dal viac golov
+					liga.getZapas(idUpravovanehoZapasu).setVysledok(1);
+				} else if(golySpolu>0){ //druhy team dal viac golov
+					liga.getZapas(idUpravovanehoZapasu).setVysledok(2);
+				} else liga.getZapas(idUpravovanehoZapasu).setVysledok(0);
+				
+				
+				JOptionPane.showMessageDialog(null, "Data boli uspesne ulozene");
+				reset();
+			}
+		});
+		tlacidla.add(ulozit);
+		
+		JButton spat = new JButton("Spat");
+		spat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				obsahHlavnejCasti=2;
+				reset();
+			}
+		});
+		tlacidla.add(spat);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth=3;
+		panel.add(tlacidla,c);		
+				
+		JPanel nic = new JPanel();		
+		c.fill = GridBagConstraints.BOTH;
+		c.weighty = 1.0;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 3;
+		panel.add(nic, c);
+		
+		return panel;
+	}
+	private int faktorial(int n){
+		int vysledok = 1;
+		for(int i = n;i>0;i--){
+			vysledok*=i;
+		}
+		return vysledok;
 	}
 	private void reset(){
 		//this.setVisible(false);
