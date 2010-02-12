@@ -47,6 +47,7 @@ public class Hrac {
 		return false;
 	}
 	public boolean jeBrankar() {
+		//ak ma odchytanu aspon minutu, je to brankar
 		int sucet=0;
 		for (int odMin: odchytMin) {
 			sucet+=odMin;
