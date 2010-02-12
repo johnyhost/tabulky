@@ -11,13 +11,13 @@ public class TeamByStats implements Comparator<Team>{
 		this.liga = liga;
 	}
 	public int compare(Team team1, Team team2) {		
-		if (team1.getBody(liga.getZoznamZapasovTeamu(team1.getIdTeamu()))
+		if (team1.getBody(liga.getZoznamZapasovTeamu(team1.getIdTeamu()),liga.getBodyZaVyhru())
 				>
-		team2.getBody(liga.getZoznamZapasovTeamu(team2.getIdTeamu()))){
+		team2.getBody(liga.getZoznamZapasovTeamu(team2.getIdTeamu()),liga.getBodyZaVyhru())){
 			return 1; 
-		} else if(team1.getBody(liga.getZoznamZapasovTeamu(team1.getIdTeamu()))
+		} else if(team1.getBody(liga.getZoznamZapasovTeamu(team1.getIdTeamu()),liga.getBodyZaVyhru())
 				==
-		team2.getBody(liga.getZoznamZapasovTeamu(team2.getIdTeamu()))){
+		team2.getBody(liga.getZoznamZapasovTeamu(team2.getIdTeamu()),liga.getBodyZaVyhru())){
 			if(team1.getStrelGoly()-team1.getInkasGoly()
 					>
 			team2.getStrelGoly()-team2.getInkasGoly()) return 1; else return -1;

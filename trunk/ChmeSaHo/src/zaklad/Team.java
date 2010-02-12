@@ -15,7 +15,7 @@ public class Team {
 	public Team() {
 		this.zoznamHracov=new ArrayList<Hrac>();
 	}
-	public int getBody(List<Zapas> zapasy) {
+	public int getBody(List<Zapas> zapasy,int bodyZaVyhru) {
 		//ziskanie poctu bodov zo zoznamu zapasov
 		int body=0;
 		for (int i = 0; i < zapasy.size(); i++) {
@@ -24,7 +24,7 @@ public class Team {
 					body+=1;
 				}
 				if(zapasy.get(i).getVysledok()==1) { // ak vyhral team 1
-					body+=3;
+					body+=bodyZaVyhru;
 				}
 			}
 			if(zapasy.get(i).getIdTeamu2()==idTeamu){
@@ -32,7 +32,7 @@ public class Team {
 					body+=1;
 				}
 				if(zapasy.get(i).getVysledok()==2) { // ak vyhral team 2
-					body+=3;
+					body+=bodyZaVyhru;
 				}
 			}
 			

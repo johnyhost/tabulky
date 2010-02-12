@@ -100,7 +100,7 @@ public class Data {
 				Team t = zoznamT.get(i);
 				String output="<tr>";
 				output+="<td style='text-align: center;'>"+(int)(i+1)+".</td><td>&nbsp;"+t.getNazov()+"</td><td style='text-align: center;'>"+liga.getZoznamZapasovTeamu(t.getIdTeamu()).size()+"</td>";
-				output+="<td style='text-align: center;'>"+t.getPocetVyhier(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getPocetRemiz(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getPocetPrehier(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getStrelGoly()+":"+t.getInkasGoly()+"</td><td style='text-align: center;'>"+t.getBody(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td>";
+				output+="<td style='text-align: center;'>"+t.getPocetVyhier(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getPocetRemiz(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getPocetPrehier(liga.getZoznamZapasovTeamu(t.getIdTeamu()))+"</td><td style='text-align: center;'>"+t.getStrelGoly()+":"+t.getInkasGoly()+"</td><td style='text-align: center;'>"+t.getBody(liga.getZoznamZapasovTeamu(t.getIdTeamu()),liga.getBodyZaVyhru())+"</td>";
 				output+="</tr>";
 				zoznamNaVypis.add(output);
 			}
@@ -176,7 +176,7 @@ public class Data {
 			zoznamNaVypis.add("GO");
 			for (Team team: liga.getZoznamTeamov()) {
 				String riadok = "INSERT Teamy VALUES ("+team.getIdTeamu()+", '"+team.getNazov()+"',"+liga.getZoznamZapasovTeamu(team.getIdTeamu()).size()+", ";
-				riadok+=team.getPocetVyhier(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getPocetRemiz(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getPocetPrehier(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getStrelGoly()+", "+team.getInkasGoly()+", "+team.getBody(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+"); ";
+				riadok+=team.getPocetVyhier(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getPocetRemiz(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getPocetPrehier(liga.getZoznamZapasovTeamu(team.getIdTeamu()))+", "+team.getStrelGoly()+", "+team.getInkasGoly()+", "+team.getBody(liga.getZoznamZapasovTeamu(team.getIdTeamu()),liga.getBodyZaVyhru())+"); ";
 				zoznamNaVypis.add(riadok);
 			}
 			for (String line : zoznamNaVypis) {
