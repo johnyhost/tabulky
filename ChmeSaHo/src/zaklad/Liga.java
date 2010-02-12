@@ -15,9 +15,11 @@ public class Liga {
 	private List<Team> zoznamTeamov;
 	private List<Zapas> zoznamZapasov;
 	private int dlzkaZapasu;
+	private int bodyZaVyhru;
 	private String nazovLigy;
 	public Liga() {
 		dlzkaZapasu=45;
+		bodyZaVyhru=3;
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
 	}	
@@ -98,9 +100,10 @@ public class Liga {
 	public Team getTeamHraca(int idHraca){
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
 			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
-				if(zoznamTeamov.get(i).getZoznamHracov().get(j).getIdHraca()==idHraca) return zoznamTeamov.get(i);
-			}
-			
+				if(zoznamTeamov.get(i).getZoznamHracov().get(j).getIdHraca()==idHraca){
+					return zoznamTeamov.get(i);
+				}
+			}			
 		} 
 		return null;
 	}
@@ -189,9 +192,18 @@ public class Liga {
 	public int getVolneIdHraca(){
 		int max=-1;
 		for(int i=0;i<zoznamTeamov.size();i++){
-			if(zoznamTeamov.get(i).getIdTeamu()>max) max = zoznamTeamov.get(i).getIdTeamu();
+			for (int j = 0; j < zoznamTeamov.get(i).getZoznamHracov().size(); j++) {
+				if(zoznamTeamov.get(i).getZoznamHracov().get(j).getIdHraca()>max) max = zoznamTeamov.get(i).getZoznamHracov().get(j).getIdHraca();
+			}
+			
 		}
 		return max+1;
 		
+	}
+	public int getBodyZaVyhru() {
+		return bodyZaVyhru;
+	}
+	public void setBodyZaVyhru(int bodyZaVyhru) {
+		this.bodyZaVyhru = bodyZaVyhru;
 	}
 }

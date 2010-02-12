@@ -689,7 +689,7 @@ public class HlavneOkno extends JFrame{
 			c.gridx = 5;
 			panel.add(new JLabel(zoradenyZoznamTeamov.get(i).getStrelGoly()+":"+zoradenyZoznamTeamov.get(i).getInkasGoly()),c);
 			c.gridx = 6;
-			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getBody(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
+			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getBody(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()),liga.getBodyZaVyhru())),c);
 		}
 		
 		
