@@ -16,6 +16,7 @@ public class Team {
 		this.zoznamHracov=new ArrayList<Hrac>();
 	}
 	public int getBody(List<Zapas> zapasy) {
+		//ziskanie poctu bodov zo zoznamu zapasov
 		int body=0;
 		for (int i = 0; i < zapasy.size(); i++) {
 			if(zapasy.get(i).getIdTeamu1()==idTeamu){
@@ -39,6 +40,7 @@ public class Team {
 		return body;
 	}
 	public int getStrelGoly() {
+		//ziskanie celkoveho poctu strelenych golov zo zoznamu hracov a spocitania kolko golov brankari dostali
 		int sucet=0;
 		for (Hrac h : zoznamHracov) {
 			sucet+=h.getGoly();
@@ -46,6 +48,7 @@ public class Team {
 		return sucet;
 	}
 	public int getInkasGoly() {
+		//ziskanie celkoveho poctu inkasovanych golov zo zoznamu hracov a spocitania kolko golov brankari dostali
 		int sucet=0;
 		for (Hrac h : zoznamHracov) {
 			sucet+=h.getInkasGoly();
@@ -68,6 +71,7 @@ public class Team {
 		return zoznamHracov;
 	}
 	public int getPocetVyhier(List<Zapas> zapasy) {
+		//ziskanie poctu vyhier teamu zo zoznamu zapasov
 		int pocetVyhier = 0;
 		for (Zapas z : zapasy) {
 			if(z.getIdTeamu1()==idTeamu){
@@ -84,6 +88,7 @@ public class Team {
 		return pocetVyhier;
 	}
 	public int getPocetRemiz(List<Zapas> zapasy) {
+		//ziskanie poctu remiz teamu zo zoznamu zapasov
 		int pocetRemiz = 0;
 		for (Zapas z : zapasy) {
 			if(z.getVysledok()==0){
@@ -93,6 +98,7 @@ public class Team {
 		return pocetRemiz;
 	}
 	public int getPocetPrehier(List<Zapas> zapasy) {
+		//ziskanie poctu prehier teamu zo zoznamu zapasov
 		int pocetPrehier = 0;
 		for (Zapas z : zapasy) {
 			if(z.getIdTeamu1()==idTeamu){
@@ -109,6 +115,7 @@ public class Team {
 		return pocetPrehier;
 	}
 	public int getSkore(int idZapasu){
+		//ziskanie poctu golov strelenych v konkretnom zapase
 		int skore=0;
 		for(int i=0;i<zoznamHracov.size();i++){
 			if(zoznamHracov.get(i).existujeZapas(idZapasu)){

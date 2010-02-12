@@ -37,8 +37,9 @@ public class Data {
 					zznmHracov.add(hrac);
 				}
 			}
-			zznmHracov = liga.sortStatsHraci(zznmHracov);
-			List<String> zoznamNaVypis = new ArrayList<String>();
+			zznmHracov = liga.sortStatsHraci(zznmHracov); //zoradim zoznam hracov podla stats
+			List<String> zoznamNaVypis = new ArrayList<String>(); //list "riadkov" - po kazdom stringu je vo vypise prechod na novy riadok
+			//vdaka tomuto systemu su exportovane subory pekne strukturovane
 			zoznamNaVypis.add("<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>");
 			zoznamNaVypis.add("<tr><td style='text-align: center;' colspan='8'>"+liga.getNazovLigy()+"</td></tr>");
 			zoznamNaVypis.add("<tr><td style='text-align: center;'>#</td><td>&nbsp;Meno</td><td style='text-align: center;'>Team</td><td style='text-align: center;'>Z</td><td style='text-align: center;'>G</td><td style='text-align: center;'>A</td><td style='text-align: center;'>B</td><td style='text-align: center;'>TM</td></tr>");
@@ -60,7 +61,7 @@ public class Data {
 					zoznamBrankarov.add(hrac);
 				}
 			}
-			zoznamBrankarov = liga.sortStatsBrankari(zoznamBrankarov);
+			zoznamBrankarov = liga.sortStatsBrankari(zoznamBrankarov); //sort brankarov
 			zoznamNaVypis.add("<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>");
 			zoznamNaVypis.add("<tr><td style='text-align: center;'>#</td><td>&nbsp;Meno</td><td style='text-align: center;'>Team</td><td style='text-align: center;'>OdchMin</td><td style='text-align: center;'>InkGol</td><td style='text-align: center;'>Priem</td></tr>");
 			for (int i = 0; i < zoznamBrankarov.size(); i++) {
@@ -71,6 +72,7 @@ public class Data {
 				zoznamNaVypis.add(output);
 			}
 			zoznamNaVypis.add("</table>");
+			//samotny vypis
 			for (String riadok : zoznamNaVypis) {
 				bwout.write(riadok);
 				bwout.newLine();

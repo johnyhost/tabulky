@@ -63,6 +63,7 @@ public class Liga {
 			for (int j = 0; j < pocetZapasov; j++) {
 				if(i%2==1) {
 					// toto je rozlisenie, na to aby sa pri odvetach striedali teamy, v prvej serii 2-4, v druhej 4-2, v tretej 2-4 atd
+					// malo by to vplyv keby sme rozlisovali vysledok doma a vonku, ale je to len kozmeticka vec
 					zoznamZapasov.add(new Zapas(i*pocetZapasov+j+1,zoznamZapasov.get(j).getIdTeamu2(),zoznamZapasov.get(j).getIdTeamu1()));
 				} else {
 					zoznamZapasov.add(new Zapas(i*pocetZapasov+j+1,zoznamZapasov.get(j).getIdTeamu1(),zoznamZapasov.get(j).getIdTeamu2()));
@@ -175,20 +176,11 @@ public class Liga {
 		return vysledok;
 	}
 	public List<Hrac> getZoznamBrankarov(){
+		// vrati zoznam hracov ktori maju odchytanu aspon minutu
 		List<Hrac> vysledok = new ArrayList<Hrac>();
 		for (int i = 0; i < zoznamTeamov.size(); i++) {
 			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
 				if(zoznamTeamov.get(i).getZoznamHracov().get(j).jeBrankar()==true)vysledok.add(zoznamTeamov.get(i).getZoznamHracov().get(j));
-			}
-			
-		} 
-		return vysledok;
-	}
-	public List<Hrac> getZoznamNebrankarov(){
-		List<Hrac> vysledok = new ArrayList<Hrac>();
-		for (int i = 0; i < zoznamTeamov.size(); i++) {
-			for(int j=0;j<zoznamTeamov.get(i).getZoznamHracov().size();j++){
-				if(zoznamTeamov.get(i).getZoznamHracov().get(j).jeBrankar()==false)vysledok.add(zoznamTeamov.get(i).getZoznamHracov().get(j));
 			}
 			
 		} 
