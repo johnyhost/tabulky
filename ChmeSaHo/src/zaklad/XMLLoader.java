@@ -9,7 +9,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-
+// trieda urcena na nacitavanie ulozenej ligy z XML suborov
 public class XMLLoader extends DefaultHandler{
 	private Liga liga;
 	private String filename;
@@ -28,10 +28,8 @@ public class XMLLoader extends DefaultHandler{
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try {
 			
-			//get a new instance of parser
 			SAXParser parser = factory.newSAXParser();
 			
-			//parse the file and also register this class for call backs
 			parser.parse(filename, this);
 			
 		}catch(SAXException se) {

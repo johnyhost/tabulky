@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import zaklad.Liga;
 import zaklad.Team;
-
+// komparator na zoradovanie teamov podla statistik
 public class TeamByStats implements Comparator<Team>{
 	Liga liga;
 	public TeamByStats(Liga liga){
