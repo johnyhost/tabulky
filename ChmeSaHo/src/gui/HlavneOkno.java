@@ -377,6 +377,7 @@ public class HlavneOkno extends JFrame{
 		    }							
 		}
 		);
+		if(liga!=null)if(liga.getZoznamZapasov().size()>0) polozkaGenerovatZapasy.setEnabled(false);
 		menuNastroje.add(polozkaGenerovatZapasy);
 		
 		horneMenu.add(menuNastroje);
