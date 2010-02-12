@@ -17,6 +17,7 @@ public class Liga {
 	private int dlzkaZapasu;
 	private String nazovLigy;
 	public Liga() {
+		dlzkaZapasu=45;
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
 	}	
@@ -33,22 +34,22 @@ public class Liga {
 		}
 		try {
 			Scanner scFile = new Scanner(f);
-			int i = 1; //pocitadlo poctu riadkov a id zapasov
+			int i = 0; //pocitadlo poctu riadkov a id zapasov
 			while (scFile.hasNextLine()) {
 				String riadok = scFile.nextLine();
 				Scanner scRiadok = new Scanner(riadok);
 				int id1=scRiadok.nextInt();
 				int id2=scRiadok.nextInt();
 				if(neparnyPocetTeamov) { 
-					if(id1<=pocetTeamov&&id2<=pocetTeamov) {
+					if(id1-1<pocetTeamov&&id2-1<pocetTeamov) {
 						// v pripade ze je neparny pocet teamov, tak je nutne skontrolovat
 						// ci nie je jeden z tymov "falosny" teda ten posledny, umelo pridany
-						zoznamZapasov.add(new Zapas(i,id1,id2));
+						zoznamZapasov.add(new Zapas(i,zoznamTeamov.get(id1-1).getIdTeamu(),zoznamTeamov.get(id2-1).getIdTeamu()));
 						i++; 
 						}
 				} else {
 					//ak je parny pocet teamov, nestaram sa a pridavam
-					zoznamZapasov.add(new Zapas(i,id1,id2));
+					zoznamZapasov.add(new Zapas(i,zoznamTeamov.get(id1-1).getIdTeamu(),zoznamTeamov.get(id2-1).getIdTeamu()));
 					i++;
 				}
 			}
@@ -58,7 +59,7 @@ public class Liga {
 		}
 		// generovanie dalsich serii zapasov (odviet)
 		int pocetZapasov = zoznamZapasov.size(); // zapamatam si, kolko zapasov je v zakladnej serii zapasov
-		for (int i = 1; i <= pocetOdviet; i++) {
+		for (int i = 0; i < pocetOdviet; i++) {
 			for (int j = 0; j < pocetZapasov; j++) {
 				if(i%2==1) {
 					// toto je rozlisenie, na to aby sa pri odvetach striedali teamy, v prvej serii 2-4, v druhej 4-2, v tretej 2-4 atd
@@ -111,10 +112,10 @@ public class Liga {
 		} 
 		return null;
 	}
-	public List<Zapas> getZoznamZapasovTeamu(int id) {
+	public List<Zapas> getZoznamZapasovTeamu(int idTeamu) {
 		List<Zapas> zznm = new ArrayList<Zapas>();
 		for (Zapas zapas : zoznamZapasov) {
-			if(zapas.getIdTeamu1()==id||zapas.getIdTeamu2()==id) zznm.add(zapas);
+			if(zapas.getIdTeamu1()==idTeamu||zapas.getIdTeamu2()==idTeamu) zznm.add(zapas);
 		}
 		return zznm;
 	}

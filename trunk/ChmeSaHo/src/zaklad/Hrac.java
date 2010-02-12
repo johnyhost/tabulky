@@ -40,6 +40,12 @@ public class Hrac {
 		//System.err.println("CHYBA: Hraca s ID"+idHraca+" sa netyka zapas s takymto ligovym ID:"+idZapasu);
 		return 0;
 	}
+	public boolean existujeZapas(int idZapasu){
+		for(int i=0;i< idZapasov.size();i++){
+			if(idZapasu==idZapasov.get(i)) return true;
+		}
+		return false;
+	}
 	public boolean jeBrankar() {
 		int sucet=0;
 		for (int odMin: odchytMin) {
@@ -93,25 +99,48 @@ public class Hrac {
 	}
 	public double getPriemer(int dlzkaZapasu) {
 		//priemer golu na zapas
-		double odchZap = getOdchytMin()/dlzkaZapasu;
-		return (double)(getInkasGoly()/odchZap);
+		double odchZap = (double)getOdchytMin()/(double)dlzkaZapasu;
+		if(odchZap!=0) return (double)(getInkasGoly()/odchZap);
+		return 0;
 	}
 	public void nehralZapas(int idZapasu){
-		idZapasov.add(idZapasu);
-		hralZapas.add(prevodIdZapasu(idZapasu),false);
-		goly.add(prevodIdZapasu(idZapasu),0);
-		asist.add(prevodIdZapasu(idZapasu),0);
-		trestMin.add(prevodIdZapasu(idZapasu),0);
-		odchytMin.add(prevodIdZapasu(idZapasu),0);
+		if(existujeZapas(idZapasu)==false){
+			idZapasov.add(idZapasu);
+			hralZapas.add(prevodIdZapasu(idZapasu),false);
+			goly.add(prevodIdZapasu(idZapasu),0);
+			asist.add(prevodIdZapasu(idZapasu),0);
+			trestMin.add(prevodIdZapasu(idZapasu),0);
+			odchytMin.add(prevodIdZapasu(idZapasu),0);
+			inkasGoly.add(prevodIdZapasu(idZapasu),0);
+		} else {
+			hralZapas.set(prevodIdZapasu(idZapasu),false);
+			goly.set(prevodIdZapasu(idZapasu),0);
+			asist.set(prevodIdZapasu(idZapasu),0);
+			trestMin.set(prevodIdZapasu(idZapasu),0);
+			odchytMin.set(prevodIdZapasu(idZapasu),0);
+			inkasGoly.set(prevodIdZapasu(idZapasu),0);
+		}
+		
 	}
 	public void addZapas(int idZapasu, int Goly, int Asist, int TrestMin, int OdchytMin, int InkGol) {
+		if(existujeZapas(idZapasu)==false){
 		idZapasov.add(idZapasu);
 		hralZapas.add(prevodIdZapasu(idZapasu),true);
 		goly.add(prevodIdZapasu(idZapasu),Goly);
 		asist.add(prevodIdZapasu(idZapasu),Asist);
 		trestMin.add(prevodIdZapasu(idZapasu),TrestMin);
 		odchytMin.add(prevodIdZapasu(idZapasu),OdchytMin);
+		inkasGoly.add(prevodIdZapasu(idZapasu),InkGol);
+		} else {
+			hralZapas.set(prevodIdZapasu(idZapasu),true);
+			goly.set(prevodIdZapasu(idZapasu),Goly);
+			asist.set(prevodIdZapasu(idZapasu),Asist);
+			trestMin.set(prevodIdZapasu(idZapasu),TrestMin);
+			odchytMin.set(prevodIdZapasu(idZapasu),OdchytMin);
+			inkasGoly.set(prevodIdZapasu(idZapasu),InkGol);
+		}
 	}
+	
 	public boolean getHralZapas(int idZapasu) {
 		return hralZapas.get(prevodIdZapasu(idZapasu));
 	}
