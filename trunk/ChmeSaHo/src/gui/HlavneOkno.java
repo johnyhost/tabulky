@@ -35,6 +35,8 @@ import porovnavanie.TeamByStats;
 
 import zaklad.*;
 
+// trieda obsahujuca vsetky prvky GUI
+
 public class HlavneOkno extends JFrame{
 	Liga liga;
 	String aktualnyAdresar;
@@ -432,6 +434,7 @@ public class HlavneOkno extends JFrame{
 		return hlavnyPanel;
 	}
 	private JPanel vytvorPravyPanel(){
+		// JPanel obsahujuci zoznam TOP10 hracov a TOP5 brankarov
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -596,6 +599,7 @@ public class HlavneOkno extends JFrame{
 		return panel;
 	}
 	private JPanel vytvorLavyPanel(){
+		// hlavna plocha aplikacie, ktora sa meni podla zvolenej polozky v menu Nastroje
 		JPanel panel = new JPanel();
 		// hlavna obrazovka, ta co sa zobrazi po spusteni
 		if(obsahHlavnejCasti==0){
@@ -613,12 +617,15 @@ public class HlavneOkno extends JFrame{
 		if(obsahHlavnejCasti==2){
 			panel=vytvorPanelSpravaZapasov();
 		}
+		// obrazovka umoznujuca upravy konkreneho zapasu
 		if(obsahHlavnejCasti==22){
 			panel=vytvorPanelUpravaZapasu();
 		}
 		return panel;		
 	}		
 	private JPanel vytvorPanelPrehladTeamov() {
+		// metoda na vytvorenie JPanelu s prehladom vsetkych teamov ligy zoradenych podla bodov
+		// tato vytvori len nadpis v hornej casti a panel urceny pre samotnu tabulku v dolnej casti
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();

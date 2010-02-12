@@ -2,7 +2,7 @@ package gui;
 
 import java.io.File;
 import javax.swing.filechooser.*;
-
+// tato trieda zabezpecuje filtrovanie suborov pri nacitani, zobrazuju sa teda len XML subory
 public class XMLFilter extends FileFilter {
     public boolean accept(File f) {
         if (f.isDirectory()) {

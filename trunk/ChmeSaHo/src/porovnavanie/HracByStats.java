@@ -5,6 +5,7 @@ import java.util.Comparator;
 import zaklad.Hrac;
 import zaklad.Liga;
 
+//komparator na zoradovanie hracov
 public class HracByStats implements Comparator<Hrac> {
 	Liga liga;
 	public HracByStats(Liga liga){

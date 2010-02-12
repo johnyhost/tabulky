@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+// trieda urcena na ukladanie existujucej ligy do XML
 public class XMLSaver {
 	private Liga liga;
 	private String filename;
