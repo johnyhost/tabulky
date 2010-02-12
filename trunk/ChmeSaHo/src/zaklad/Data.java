@@ -79,7 +79,6 @@ public class Data {
 			bwout.close();
 			System.out.println("export hracov do html ukonceny");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -89,7 +88,7 @@ public class Data {
 		BufferedWriter bwout;
 		try {
 			bwout = new BufferedWriter(new FileWriter(filename));
-			List<String> zoznamNaVypis = new ArrayList<String>();
+			List<String> zoznamNaVypis = new ArrayList<String>(); // sem sa pridavaju stringy - riadky, ktore pri pisani do suboru oddelujem novym riadkom 
 			zoznamNaVypis.add("<table border='1' cellspacing='0' cellpadding='0' bordercolor='#FED8C0' width='400'>");
 			zoznamNaVypis.add("<tr><td style='text-align: center;' colspan='8'>"+liga.getNazovLigy()+"</td></tr>");
 			zoznamNaVypis.add("<tr><td style='text-align: center;'>#</td><td>&nbsp;Team Name</td><td style='text-align: center;'>Z</td><td style='text-align: center;'>V</td><td style='text-align: center;'>R</td><td style='text-align: center;'>P</td>");
@@ -111,7 +110,6 @@ public class Data {
 			bwout.close();
 			System.out.println("export teamov do html ukonceny");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -151,7 +149,6 @@ public class Data {
 			bwout.close();
 			System.out.println("export zapasov do html ukonceny");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -253,7 +250,6 @@ public class Data {
 			bwout.close();
 			System.out.println("export do sql ukonceny");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
