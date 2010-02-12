@@ -39,4 +39,5 @@ public class Zapas {
 		this.vysledok = vysledok;
 	}
 	
+	
 }

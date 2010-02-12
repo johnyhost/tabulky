@@ -108,4 +108,13 @@ public class Team {
 		}
 		return pocetPrehier;
 	}
+	public int getSkore(int idZapasu){
+		int skore=0;
+		for(int i=0;i<zoznamHracov.size();i++){
+			if(zoznamHracov.get(i).existujeZapas(idZapasu)){
+				skore+=zoznamHracov.get(i).getGoly(idZapasu);
+			}
+		}
+		return skore;
+	}
 }
