@@ -50,7 +50,7 @@ public class HlavneOkno extends JFrame{
 		setBounds(0, 0, x, y);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setTitle("Tabulky");
+		this.setTitle("Tabuæky");
 		obsahHlavnejCasti=0;
 		try {
 			aktualnyAdresar=new File (".").getCanonicalPath();
@@ -71,15 +71,15 @@ public class HlavneOkno extends JFrame{
 		JMenuBar horneMenu = new JMenuBar();
 		//horneMenu.setBorder(BorderFactory.createLineBorder(Color.red));
 		
-		JMenu menuSubor = new JMenu("Subor");
+		JMenu menuSubor = new JMenu("S˙bor");
 		horneMenu.add(menuSubor);
 		
-		JMenuItem polozkaNovaLiga = new JMenuItem("Nova Liga");
+		JMenuItem polozkaNovaLiga = new JMenuItem("Nov· Liga");
 		polozkaNovaLiga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String response = JOptionPane.showInputDialog(null,
-						  "Zadajte nazov ligy",
-						  "Nazov ligy",
+						  "Zadajte n·zov ligy",
+						  "N·zov ligy",
 						  JOptionPane.QUESTION_MESSAGE); 
 				if(response!=null && response.equals("")==false){
 					liga = new Liga();
@@ -119,7 +119,7 @@ public class HlavneOkno extends JFrame{
 		
 		menuSubor.add(new JSeparator());
 		
-		JMenuItem polozkaUlozLigu = new JMenuItem("Uloz Ligu");
+		JMenuItem polozkaUlozLigu = new JMenuItem("Uloû Ligu");
 		polozkaUlozLigu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(aktualnyNazovSuboru==null){
@@ -156,7 +156,7 @@ public class HlavneOkno extends JFrame{
 		);
 		menuSubor.add(polozkaUlozLigu);
 		
-		JMenuItem polozkaUlozLiguAko = new JMenuItem("Uloz Ligu ako");
+		JMenuItem polozkaUlozLiguAko = new JMenuItem("Uloû Ligu ako");
 		polozkaUlozLiguAko.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
@@ -194,7 +194,7 @@ public class HlavneOkno extends JFrame{
 		
 		JMenu menuExport = new JMenu("Export");
 		
-		JMenuItem polozkaExportHtmlTeamy = new JMenuItem("Tabulka do HTML");
+		JMenuItem polozkaExportHtmlTeamy = new JMenuItem("Tabuæka do HTML");
 		polozkaExportHtmlTeamy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
@@ -225,7 +225,7 @@ public class HlavneOkno extends JFrame{
 		);
 		menuExport.add(polozkaExportHtmlTeamy);
 		
-		JMenuItem polozkaExportHtmlHraci = new JMenuItem("Statistiky do HTML");
+		JMenuItem polozkaExportHtmlHraci = new JMenuItem("ätatistiky do HTML");
 		polozkaExportHtmlHraci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
@@ -255,7 +255,7 @@ public class HlavneOkno extends JFrame{
 		);
 		menuExport.add(polozkaExportHtmlHraci);
 		
-		JMenuItem polozkaExportHtmlZapasy = new JMenuItem("Zapasy do HTML");
+		JMenuItem polozkaExportHtmlZapasy = new JMenuItem("Z·pasy do HTML");
 		polozkaExportHtmlZapasy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc;
@@ -322,7 +322,7 @@ public class HlavneOkno extends JFrame{
 		polozkaKoniec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int odpoved;
-	    		odpoved = JOptionPane.showConfirmDialog(null, "Chces ukoncit program?","Okno",0);
+	    		odpoved = JOptionPane.showConfirmDialog(null, "Chcete ukonËiù program?","Okno",0);
 	    		if(odpoved==0)System.exit(0);
 		    	}							
 			}
@@ -331,9 +331,9 @@ public class HlavneOkno extends JFrame{
 		
 		horneMenu.add(menuSubor);
 		
-		JMenu menuNastroje = new JMenu("Nastroje");
+		JMenu menuNastroje = new JMenu("N·stroje");
 		
-		JMenuItem polozkaZobrazPrehladTeamov = new JMenuItem("Zobraz prehlad teamov");
+		JMenuItem polozkaZobrazPrehladTeamov = new JMenuItem("Zobraz tabuæku");
 		polozkaZobrazPrehladTeamov.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				obsahHlavnejCasti=0;		
@@ -343,7 +343,7 @@ public class HlavneOkno extends JFrame{
 		);
 		menuNastroje.add(polozkaZobrazPrehladTeamov);
 		
-		JMenuItem polozkaSpravaHracovATeamov = new JMenuItem("Sprava hracov a teamov");
+		JMenuItem polozkaSpravaHracovATeamov = new JMenuItem("Spr·va teamov a hr·Ëov");
 		polozkaSpravaHracovATeamov.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				obsahHlavnejCasti=1;		
@@ -354,7 +354,7 @@ public class HlavneOkno extends JFrame{
 		
 		menuNastroje.add(polozkaSpravaHracovATeamov);
 		
-		JMenuItem polozkaSpravaZapasov = new JMenuItem("Sprava zapasov");
+		JMenuItem polozkaSpravaZapasov = new JMenuItem("Spr·va z·pasov");
 		polozkaSpravaZapasov.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				obsahHlavnejCasti=2;		
@@ -365,7 +365,7 @@ public class HlavneOkno extends JFrame{
 		
 		menuNastroje.add(polozkaSpravaZapasov);
 		
-		JMenuItem polozkaGenerovatZapasy = new JMenuItem("Generuj zapasy");
+		JMenuItem polozkaGenerovatZapasy = new JMenuItem("Generuj z·pasy");
 		polozkaGenerovatZapasy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String response = JOptionPane.showInputDialog(null,
@@ -464,7 +464,7 @@ public class HlavneOkno extends JFrame{
 		c.gridwidth = 7;
 		c.gridx = 0;
 		c.gridy = 0;
-		nadpis.add(new JLabel("TOP 10 Hraci"));
+		nadpis.add(new JLabel("TOP10 Hr·Ëi"));
 		panel.add(nadpis,c);
 		c.insets = new Insets(5,5,2,2);
 		c.gridwidth = 1;
@@ -482,12 +482,14 @@ public class HlavneOkno extends JFrame{
 		panel.add(new JLabel("Team"),c);
 		c.weightx = 0.1;
 		c.gridx = 3;
-		panel.add(new JLabel("G"),c);
+		panel.add(new JLabel("Z"),c);
 		c.gridx = 4;
-		panel.add(new JLabel("A"),c);
+		panel.add(new JLabel("G"),c);
 		c.gridx = 5;
-		panel.add(new JLabel("OZ"),c);
+		panel.add(new JLabel("A"),c);
 		c.gridx = 6;
+		panel.add(new JLabel("B"),c);
+		c.gridx = 7;
 		panel.add(new JLabel("TM"),c);
 		
 		List<Hrac> hraci = liga.getZoznamHracov();
@@ -509,12 +511,14 @@ public class HlavneOkno extends JFrame{
 			panel.add(new JLabel(liga.getTeamHraca(hraci.get(i).getIdHraca()).getNazov()),c);
 			c.weightx = 0.1;
 			c.gridx = 3;
-			panel.add(new JLabel(hrac.getGoly()+""),c);
-			c.gridx = 4;
-			panel.add(new JLabel(hrac.getAsist()+""),c);
-			c.gridx = 5;
 			panel.add(new JLabel(hrac.getOdohratychZapasov()+""),c);
+			c.gridx = 4;
+			panel.add(new JLabel(hrac.getGoly()+""),c);
+			c.gridx = 5;
+			panel.add(new JLabel(hrac.getAsist()+""),c);
 			c.gridx = 6;
+			panel.add(new JLabel((hrac.getAsist()+hrac.getGoly())+""),c);
+			c.gridx = 7;
 			panel.add(new JLabel(hrac.getTrestMin()+""),c);
 		}
 		JPanel nic = new JPanel();
@@ -539,7 +543,7 @@ public class HlavneOkno extends JFrame{
 		c.gridwidth = 6;
 		c.gridx = 0;
 		c.gridy = 0;
-		nadpis.add(new JLabel("TOP 5 Brankari"));
+		nadpis.add(new JLabel("TOP5 Brank·ri"));
 		panel.add(nadpis,c);
 		c.insets = new Insets(5,5,2,2);
 		c.gridwidth = 1;
@@ -557,11 +561,11 @@ public class HlavneOkno extends JFrame{
 		panel.add(new JLabel("Team"),c);
 		c.weightx = 0.1;
 		c.gridx = 3;
-		panel.add(new JLabel("IG"),c);
-		c.gridx = 4;
 		panel.add(new JLabel("OM"),c);
+		c.gridx = 4;
+		panel.add(new JLabel("IG"),c);
 		c.gridx = 5;
-		panel.add(new JLabel("P"),c);
+		panel.add(new JLabel("Pr"),c);
 		
 		List<Hrac> hraci = liga.getZoznamBrankarov();
 		Collections.sort(hraci,new BrankarByStats(liga)); 
@@ -582,9 +586,9 @@ public class HlavneOkno extends JFrame{
 			panel.add(new JLabel(liga.getTeamHraca(hraci.get(i).getIdHraca()).getNazov()),c);
 			c.weightx = 0.1;
 			c.gridx = 3;
-			panel.add(new JLabel(hrac.getInkasGoly()+""),c);
-			c.gridx = 4;
 			panel.add(new JLabel(hrac.getOdchytMin()+""),c);
+			c.gridx = 4;
+			panel.add(new JLabel(hrac.getInkasGoly()+""),c);
 			c.gridx = 5;
 			panel.add(new JLabel(hrac.getPriemer(liga.getDlzkaZapasu())+""),c);
 		}
@@ -629,7 +633,7 @@ public class HlavneOkno extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();
-		nadpis.add(new JLabel("Prehlad Teamov"));
+		nadpis.add(new JLabel("Tabuæka"));
 		panel.add(nadpis);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;	
@@ -661,21 +665,23 @@ public class HlavneOkno extends JFrame{
 		c.anchor = GridBagConstraints.NORTH;
 		c.gridy = 0;
 		c.weightx = 0.05;
-		panel.add(new JLabel("Poradie"),c);
+		panel.add(new JLabel("#"),c);
 		c.weightx = 0.5;
 		c.gridx = 1;		
-		panel.add(new JLabel("Nazov"),c);
+		panel.add(new JLabel("N·zov teamu"),c);
 		c.weightx = 0.1;
 		c.gridx = 2;
-		panel.add(new JLabel("Vyhry"),c);
+		panel.add(new JLabel("Z"),c);
 		c.gridx = 3;
-		panel.add(new JLabel("Prehry"),c);
+		panel.add(new JLabel("V"),c);
 		c.gridx = 4;
-		panel.add(new JLabel("Remizy"),c);
+		panel.add(new JLabel("R"),c);
 		c.gridx = 5;
-		panel.add(new JLabel("Skore"),c);
+		panel.add(new JLabel("P"),c);
 		c.gridx = 6;
-		panel.add(new JLabel("Body"),c);
+		panel.add(new JLabel("SkÛre"),c);
+		c.gridx = 7;
+		panel.add(new JLabel("B"),c);
 		List<Team> zoradenyZoznamTeamov = liga.getZoznamTeamov();
 		Collections.sort(zoradenyZoznamTeamov,Collections.reverseOrder(new TeamByStats(liga)));
 		for(int i=0;i<zoradenyZoznamTeamov.size();i++){
@@ -688,14 +694,17 @@ public class HlavneOkno extends JFrame{
 			panel.add(new JLabel(zoradenyZoznamTeamov.get(i).getNazov()),c);
 			c.weightx = 0.1;
 			c.gridx = 2;
-			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetVyhier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
+			int pocetZapasov = zoradenyZoznamTeamov.get(i).getPocetVyhier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))+zoradenyZoznamTeamov.get(i).getPocetRemiz(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))+zoradenyZoznamTeamov.get(i).getPocetPrehier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()));
+			panel.add(new JLabel(""+pocetZapasov),c);
 			c.gridx = 3;
-			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetPrehier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
+			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetVyhier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
 			c.gridx = 4;
 			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetRemiz(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
 			c.gridx = 5;
-			panel.add(new JLabel(zoradenyZoznamTeamov.get(i).getStrelGoly()+":"+zoradenyZoznamTeamov.get(i).getInkasGoly()),c);
+			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getPocetPrehier(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()))),c);
 			c.gridx = 6;
+			panel.add(new JLabel(zoradenyZoznamTeamov.get(i).getStrelGoly()+":"+zoradenyZoznamTeamov.get(i).getInkasGoly()),c);
+			c.gridx = 7;
 			panel.add(new JLabel(""+zoradenyZoznamTeamov.get(i).getBody(liga.getZoznamZapasovTeamu(zoradenyZoznamTeamov.get(i).getIdTeamu()),liga.getBodyZaVyhru())),c);
 		}
 		
@@ -716,7 +725,7 @@ public class HlavneOkno extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();
-		nadpis.add(new JLabel("Sprava hracov a teamov"));
+		nadpis.add(new JLabel("Spr·va teamov a hr·Ëov"));
 		panel.add(nadpis);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;	
@@ -742,7 +751,7 @@ public class HlavneOkno extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();
-		nadpis.add(new JLabel("Sprava hracov teamu "+liga.getZoznamTeamov().get(idUpravovanehoTeamu).getNazov()));
+		nadpis.add(new JLabel("Spr·va hr·Ëov teamu "+liga.getZoznamTeamov().get(idUpravovanehoTeamu).getNazov()));
 		panel.add(nadpis);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;	
@@ -779,7 +788,7 @@ public class HlavneOkno extends JFrame{
 			c.gridy = i;
 			panel.add(meno, c);
 			
-			JButton spravuj = new JButton("Sprava hracov");
+			JButton spravuj = new JButton("Spr·va hr·Ëov");
 			final int idTeamu=i;		
 			spravuj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -799,7 +808,7 @@ public class HlavneOkno extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					String response = JOptionPane.showInputDialog(null,
 							  "Zadajte meno teamu",
-							  "Meno hraca",
+							  "Meno hr·Ëa",
 							  JOptionPane.QUESTION_MESSAGE); if(response!=null && response!="")
 					liga.getZoznamTeamov().get(idTeamu).setNazov(response);
 					reset();
@@ -811,11 +820,11 @@ public class HlavneOkno extends JFrame{
 			c.gridy = i;
 			panel.add(uprav, c);
 	
-			JButton vymaz = new JButton("Vymaz team");
+			JButton vymaz = new JButton("Vymaû team");
 			vymaz.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int odpoved;
-		    		odpoved = JOptionPane.showConfirmDialog(null, "Chces vymazat team "+liga.getZoznamTeamov().get(idTeamu).getNazov()+"?","Okno",0);
+		    		odpoved = JOptionPane.showConfirmDialog(null, "Chcete vymazaù team "+liga.getZoznamTeamov().get(idTeamu).getNazov()+"?","Okno",0);
 		    		if(odpoved==0)liga.getZoznamTeamov().remove(idTeamu);
 					
 					reset();
@@ -841,8 +850,8 @@ public class HlavneOkno extends JFrame{
 		pridaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String response = JOptionPane.showInputDialog(null,
-						  "Zadajte nazov teamu",
-						  "Nazov teamu",
+						  "Zadajte n·zov teamu",
+						  "N·zov teamu",
 						  JOptionPane.QUESTION_MESSAGE); if(response!=null && response!="")
 				liga.getZoznamTeamov().add(new Team(response,idTeamu));
 				reset();
@@ -889,12 +898,12 @@ public class HlavneOkno extends JFrame{
 				panel.add(meno, c);				
 				
 				final int idHraca=j;
-				JButton uprav = new JButton("Uprav hraca");
+				JButton uprav = new JButton("Uprav hr·Ëa");
 				uprav.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String response = JOptionPane.showInputDialog(null,
-								  "Zadajte meno hraca",
-								  "Meno hraca",
+								  "Zadajte meno hr·Ëa",
+								  "Meno hr·Ëa",
 								  JOptionPane.QUESTION_MESSAGE); if(response!=null && response!="") if(response!=null && response!="")
 						liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().get(idHraca).setMeno(response);
 						reset();
@@ -906,11 +915,11 @@ public class HlavneOkno extends JFrame{
 				c.gridy = j;
 				panel.add(uprav, c);
 
-				JButton vymaz = new JButton("Vymaz hraca");
+				JButton vymaz = new JButton("Vymaû hr·Ëa");
 				vymaz.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int odpoved;
-			    		odpoved = JOptionPane.showConfirmDialog(null, "Chces vymazat hraca "+liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().get(idHraca).getMeno()+"?","Okno",0);
+			    		odpoved = JOptionPane.showConfirmDialog(null, "Chcete vymazaù hr·Ëa "+liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().get(idHraca).getMeno()+"?","Okno",0);
 			    		if(odpoved==0)liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().remove(idHraca);
 						
 						reset();
@@ -923,12 +932,12 @@ public class HlavneOkno extends JFrame{
 				panel.add(vymaz, c);
 			}
 			
-			JButton pridaj = new JButton("Pridaj hraca");
+			JButton pridaj = new JButton("Pridaj hr·Ëa");
 			pridaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String response = JOptionPane.showInputDialog(null,
-							  "Zadajte meno hraca",
-							  "Meno hraca",
+							  "Zadajte meno hr·Ëa",
+							  "Meno hr·Ëa",
 							  JOptionPane.QUESTION_MESSAGE); if(response!=null && response!="")
 					liga.getZoznamTeamov().get(idUpravovanehoTeamu).getZoznamHracov().add(new Hrac(liga.getVolneIdHraca(),response));
 					reset();
@@ -977,7 +986,7 @@ public class HlavneOkno extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();
-		nadpis.add(new JLabel("Sprava zapasov"));
+		nadpis.add(new JLabel("Spr·va z·pasov"));
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;	
 		c.anchor = GridBagConstraints.PAGE_START;
@@ -1007,7 +1016,7 @@ public class HlavneOkno extends JFrame{
 		c.gridx = 0;
 		c.gridy = 0;
 		panel.add(cislo,c);
-		JButton back = new JButton("Predchadzajuce kolo");
+		JButton back = new JButton("Predch·dzaj˙ce kolo");
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int pT=liga.getZoznamTeamov().size();
@@ -1018,7 +1027,7 @@ public class HlavneOkno extends JFrame{
 		});
 		c.gridx = 1;
 		panel.add(back,c);
-		JButton next = new JButton("Nasledujuce kolo");
+		JButton next = new JButton("Nasleduj˙ce kolo");
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int pT=liga.getZoznamTeamov().size();
@@ -1035,7 +1044,7 @@ public class HlavneOkno extends JFrame{
 			c.gridx = 0;
 			c.gridy=i+1;
 			panel.add(nazov,c);
-			JButton upravit = new JButton("Upravit zapas");
+			JButton upravit = new JButton("Upraviù z·pas");
 			final int id=zapas.getIdZapasu();
 			upravit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -1047,7 +1056,7 @@ public class HlavneOkno extends JFrame{
 			c.gridx=1;
 			panel.add(upravit,c);
 			if(zapas.getVysledok()==-1){
-				JLabel info = new JLabel("Zapas este neprebehol");
+				JLabel info = new JLabel("Z·pas eöte neprebehol");
 				c.gridx=2;
 				panel.add(info,c);
 			} else {
@@ -1072,7 +1081,7 @@ public class HlavneOkno extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		JPanel nadpis = new JPanel();
-		nadpis.add(new JLabel("Uprava zapasu"));
+		nadpis.add(new JLabel("⁄prava z·pasu"));
 		panel.add(nadpis);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;	
@@ -1218,7 +1227,7 @@ public class HlavneOkno extends JFrame{
 		
 		JPanel tlacidla = new JPanel();
 		
-		JButton ulozit = new JButton("Ulozit");
+		JButton ulozit = new JButton("Uloûiù");
 		ulozit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// kontrola ci su zadane data cisla
@@ -1227,7 +1236,7 @@ public class HlavneOkno extends JFrame{
 						 JTextField pole =  (JTextField) lavyTeam.getComponent(i);
 						 for(int j=0;j<pole.getText().length();j++){
 							 if(Character.isDigit(pole.getText().charAt(j))==false){
-								 JOptionPane.showMessageDialog(null, "Zadane hodnoty nie su platne, data neboli ulozene");
+								 JOptionPane.showMessageDialog(null, "ZadanÈ hodnoty nie s˙ platnÈ, data neboli uloûenÈ");
 								 return;
 							 }
 						 }
@@ -1241,7 +1250,7 @@ public class HlavneOkno extends JFrame{
 						 }
 						 for(int j=0;j<pole.getText().length();j++){
 							 if(Character.isDigit(pole.getText().charAt(j))==false){
-								 JOptionPane.showMessageDialog(null, "Zadane hodnoty nie su platne, data neboli ulozene");
+								 JOptionPane.showMessageDialog(null, "ZadanÈ hodnoty nie s˙ platnÈ, data neboli uloûenÈ");
 								 return;
 							 }
 						 }
@@ -1332,13 +1341,13 @@ public class HlavneOkno extends JFrame{
 				} else liga.getZapas(idUpravovanehoZapasu).setVysledok(0);
 				
 				
-				JOptionPane.showMessageDialog(null, "Data boli uspesne ulozene");
+				JOptionPane.showMessageDialog(null, "Data boli ˙speöne uloûenÈ");
 				reset();
 			}
 		});
 		tlacidla.add(ulozit);
 		
-		JButton spat = new JButton("Spat");
+		JButton spat = new JButton("Sp‰ù");
 		spat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				obsahHlavnejCasti=2;
