@@ -19,7 +19,7 @@ public class Liga {
 	private String nazovLigy;
 	public Liga() {
 		dlzkaZapasu=45;
-		bodyZaVyhru=3;
+		bodyZaVyhru=2;
 		this.zoznamTeamov=new ArrayList<Team>();
 		this.zoznamZapasov=new ArrayList<Zapas>();
 	}	
